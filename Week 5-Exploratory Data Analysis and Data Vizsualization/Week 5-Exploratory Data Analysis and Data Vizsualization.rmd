@@ -70,6 +70,8 @@ plot(iris[,2:3] ,
 
 #barplot
 
+
+
 #scatter
 
 

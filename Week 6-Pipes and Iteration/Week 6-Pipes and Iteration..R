@@ -1,16 +1,13 @@
 library(magrittr)
 
-
 # Basic use:
 iris %>% head
-
 
 # Use with lhs as first argument
 iris %>% head(10)
 
 # Using the dot place-holder
 "Ceci n'est pas une pipe" %>% gsub("une", "un", .)
-
 
 # When dot is nested, lhs is still placed first:
 sample(1:10) %>% paste0(LETTERS[.])
@@ -67,8 +64,6 @@ trig_fest(1:10)
 ################################################################################
 ## Iteration 
 ################################################################################
-
-
 name <- c("Donald", "Joe", "Hillary")
 age <- c(74, 78, 65)
 city <- c("New york", "Denver", "Dallas")
@@ -131,7 +126,8 @@ for (i in 1:dim(mtrx)[1]) {
 mtrx[1:5, 1:5]
 
 #############################################################
-
+# Apply a functino over the rows or columns in a matrix
+#############################################################
 m1 <- matrix(C<-(1:10),nrow=5, ncol=6)
 m1
 a_m1 <- apply(m1, 2, sum)
@@ -139,23 +135,58 @@ a_m1
 
 b_m1 <- apply(m1, 1, sum)
 b_m1
-
-
 #############################################################
-movies <- c("SPYDERMAN","BATMAN","VERTIGO","CHINATOWN")
-movies_lower <-lapply(movies, tolower)
-movies_lower
-
-movies_lower <-sapply(movies, tolower)
-movies_lower
-
-movies_lower <-tapply(movies, tolower)
-movies_lower
-
-########################################################
-
+#tapply apply the function to two list
+#############################################################
 iris$Sepal.Length
 iris$Species
 
 tapply(iris$Sepal.Length, iris$Species, mean)
+
+#############################################################
+# Using Lapply (list apply), sapply(vector/matrix apply), 
+#############################################################
+movies <- c("SPYDERMAN","BATMAN","VERTIGO","CHINATOWN")
+
+#output as a list
+movies_lower <-lapply(movies, tolower)
+movies_lower
+
+#output as a vector/matrix
+movies_lower <-sapply(movies, tolower)
+movies_lower
+
+
+########################################################
+# Workshop Exercise
+########################################################
+library(parathyroidSE)
+data(parathyroidExonsSE)
+
+cm <- assay(parathyroidExonsSE)[1:5000,]
+
+#1. Construct a plot of the first sample in the matrix 
+#    to visualized the overall distribution of expressions
+
+#2. Use a loop function, construct the same plot over all 27 sample individually 
+#    save the plot to a local drive as a PNG. Try chaining all command into a single chunk
+
+#3. Using pheatmap, identify possible cluster of samples and seperate the sample 
+#    into a minimal of 2 cluster 
+
+#4. Construct the heatmap of expression of each cluster 
+#     save the plot to a local drive as a PNG. Try chaining all command into a single chunk
+
+#5. Create a function that would allow the saving of images from indivudal columns
+#     apply this function to the matrix using the apply() functions 
+
+#6. Attach the colname name to the matrix using colData(parathyroidExonsSE)
+#    Write the code that would allow you do seperate then sample based on
+#       a. Treatment,
+#       b. Time
+#   Using a loop, create function that automatically create folder from the different anlysis method
+#   Apply this function to the original dataset by combining both countmatrix and Col_data
+
+
+
 
