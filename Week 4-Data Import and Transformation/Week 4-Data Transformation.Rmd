@@ -180,11 +180,12 @@ select() allows you to rapidly zoom in on a useful subset using operations based
 x <- flights %>% select(year, month, day)
 x
 ```
+
+
 To get a more summarised look, use the structure, str() function   
 ```{r}
 str(x)
 ```
-
 
 
 
@@ -285,14 +286,6 @@ x <- flights %>% transmute(
 str(x)
 ```
 
-# Exercises on Mutate() 
-1. Currently dep_time and sched_dep_time are convenient to look at, but hard to compute with because the are not really continuous numbers. Convert them to a more convenient representation of number of minutes since midnight.
-```{r}
-
-
-
-```
-
 
 #Summarise(),  It collapses a data frame to a single row:
 ```{r}
@@ -309,54 +302,6 @@ x
 dim(x)
 str(x)
 ```
-Calculate destination delay based on destination, and filter the final ouput
-
-```{r}
-delays <- flights %>% 
-            group_by(dest) %>% 
-            summarise(
-              count = n(),
-              dist = mean(distance, na.rm = TRUE),
-              delay = mean(arr_delay, na.rm = TRUE)
-            ) %>% 
-               filter(count > 20, dest != "HNL")
-
-library(ggplot2)
-ggplot(data = delays, mapping = aes(x = dist, y = delay)) +
-  geom_point(aes(size = count), alpha = 1/3) +
-  geom_smooth(se = FALSE)
-
-```
-
-# Real World Example
-ParathyroidSE is a dataset from bioconduct that contain a RNA-Seq experiment
-
-How would you 
-1. 
-
-```{r}
-BiocManager::install("parathyroidSE")
-library(parathyroidSE)
-
-data(parathyroidGenesSE)
-countmatrix <- as.data.frame(parathyroidGenesSE@assays$data$counts)
-sample <- as.data.frame(parathyroidGenesSE@colData)
-genesname <- as.data.frame(rownames(parathyroidGenesSE))
-
-```
-
-
-From the data above, extract 
-1a. Apply the Columns Name to the count matrix using the colnames() function based on the sample run name
-1b. Apply the Row Name to the count matrix using the rownames() function based on the genes names
-1c  Extract Sample (RUN) name of DPN treatment on 12h only
-1b. Subset the countmatrix to only containly the newly set criteria 
-1b. plot a heatmap using pheatmap on the newly extract col information
-
-
-
-
-
 
 
 
