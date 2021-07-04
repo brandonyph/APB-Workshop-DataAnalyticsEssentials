@@ -171,7 +171,7 @@ cm <- assay(parathyroidExonsSE)[1:5000,]
 #2. Use a loop function, construct the same plot over all 27 sample individually 
 #    save the plot to a local drive as a PNG. Try chaining all command into a single chunk
 
-#3. Using pheatmap, identify possible cluster of samples and seperate the sample 
+#3. Using pheatmap, identify possible cluster of samples and separate the sample 
 #    into a minimal of 2 cluster 
 
 #4. Construct the heatmap of expression of each cluster 
@@ -181,10 +181,10 @@ cm <- assay(parathyroidExonsSE)[1:5000,]
 #     apply this function to the matrix using the apply() functions 
 
 #6. Attach the colname name to the matrix using colData(parathyroidExonsSE)
-#    Write the code that would allow you do seperate then sample based on
+#    Write the code that would allow you do separate then sample based on
 #       a. Treatment,
 #       b. Time
-#   Using a loop, create function that automatically create folder from the different anlysis method
+#   Using a loop, create function that automatically create folder from the different analysis method
 #   Apply this function to the original dataset by combining both countmatrix and Col_data
 
 
