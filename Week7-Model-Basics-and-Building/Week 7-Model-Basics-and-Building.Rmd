@@ -554,7 +554,7 @@ model %>% compile(
 history <- model %>% 
   fit(
     x = train_data, y = train_label,
-    epochs = 20,
+    epochs = 2,
     validation_split=0.2,
     use_multiprocessing=TRUE
   )
@@ -616,7 +616,7 @@ model3 %>% fit(
   x = x_train, 
   y = x_train, 
   verbose = 0,
-  epochs = 1000,
+  epochs = 100,
   batch_size = 2
 )
 # evaluate the performance of the model
@@ -629,6 +629,8 @@ intermediate_output <- predict(intermediate_layer_model, x_train)
 # plot the reduced dat set
 aedf3 <- data.frame(node1 = intermediate_output[,1], node2 = intermediate_output[,2], node3 = intermediate_output[,3])
 
+
+library(plotly)
 ae_plotly <- plot_ly(aedf3, x = ~node1, y = ~node2, z = ~node3, color = ~ais$sex) %>% add_markers()
 ae_plotly 
 
