@@ -9,7 +9,7 @@ output: pdf_document
 #Remove Comment tags to install
 #install.packages("pheatmap")
 
-x <- matrix(rnorm(1000),nrow=100)
+
 
 library(pheatmap)
 

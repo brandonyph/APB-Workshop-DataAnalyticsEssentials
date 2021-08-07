@@ -22,6 +22,7 @@ library(ggplot2)
 library(pheatmap)
 library(dplyr)
 library(tidyverse)
+library("ggpubr")
 
 ```
 
@@ -102,6 +103,13 @@ ggplot(iris, aes(Sepal.Length)) +
 
 #Bar plot
 ```{r}
+df <- mtcars %>%
+  rownames_to_column() %>%
+  as_data_frame() %>%
+  mutate(cyl = as.factor(cyl)) %>%
+  select(rowname, wt, mpg, cyl)
+
+
 # Basic bar plots
 ggplot(df, aes(x = rowname, y = mpg)) +
   geom_col() +
@@ -242,7 +250,9 @@ ggdendrogram(hc, rotate = TRUE, size = 2)
 ```
 
 ```{r PCA Plot}
-library(factoMin)
+library(factoMineR)
+library(factoextra)
+
 res.pca <- prcomp(iris[, -5],  scale = TRUE)
 
 # Use points only

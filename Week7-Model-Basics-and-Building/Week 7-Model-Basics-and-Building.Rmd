@@ -573,6 +573,154 @@ confusionMatrix(table(Prediction_train_data,train_label))
 #Recurrent
 #https://github.com/brandonyph/Introduction-to-RNN-in-R
 
+library(tibble)
+library(readr)
+library(ggplot2)
+library(keras)
+library(tensorflow)
+
+raw_data <- read_csv("https://raw.githubusercontent.com/gilbutITbook/006975/master/datasets/jena_climate/jena_climate_2009_2016.csv")
+
+data <- data.matrix(raw_data[, -1])
+
+mean <- apply(data, 2, mean)
+std <- apply(data, 2, sd)
+data <- scale(data, center = mean, scale = std)
+
+normalize <- function(x) {
+  return ((x - min(x)) / (max(x) - min(x)))
+}
+
+max <- apply(data,2,max)
+min <- apply(data,2,min)
+
+data <- apply(data, 2, normalize)
+
+plot(data[1:30000,2 ])
+
+generator <- function(data,
+                      lookback,
+                      delay,
+                      min_index,
+                      max_index,
+                      shuffle = FALSE,
+                      batch_size = 128,
+                      step = 6) {
+  if (is.null(max_index))
+    max_index <- nrow(data) - delay - 1
+  i <- min_index + lookback
+  function() {
+    if (shuffle) {
+      rows <-
+        sample(c((min_index + lookback):max_index), size = batch_size)
+    } else {
+      if (i + batch_size >= max_index)
+        i <<- min_index + lookback
+      rows <- c(i:min(i + batch_size - 1, max_index))
+      i <<- i + length(rows)
+    }
+    samples <- array(0, dim = c(length(rows),
+                                lookback / step,
+                                dim(data)[[-1]]))
+    targets <- array(0, dim = c(length(rows)))
+    
+    for (j in 1:length(rows)) {
+      indices <- seq(rows[[j]] - lookback, rows[[j]] - 1,
+                     length.out = dim(samples)[[2]])
+      samples[j, , ] <- data[indices, ]
+      targets[[j]] <- data[rows[[j]] + delay, 2]
+    }
+    list(samples, targets)
+  }
+}
+
+lookback <- 1440
+step <- 6
+delay <- 44
+batch_size <- 64
+
+train_gen <- generator(
+  data,
+  lookback = lookback,
+  delay = delay,
+  min_index = 1,
+  max_index = 30000,
+  shuffle = FALSE,
+  step = step,
+  batch_size = batch_size)
+
+lookback <- 240
+step <- 1
+delay <- 44
+batch_size <- 64
+
+train_gen <- generator(
+  data,
+  lookback = lookback,
+  delay = delay,
+  min_index = 1,
+  max_index = 30000,
+  shuffle = FALSE,
+  step = step,
+  batch_size = batch_size)
+
+train_gen_data <- train_gen()
+
+model <- keras_model_sequential() %>%
+  layer_flatten(input_shape = c(lookback / step, dim(data)[-1])) %>%
+  layer_dense(units = 128, activation = "relu") %>%
+  layer_dense(units = 64, activation = "relu") %>%
+  layer_dense(units = 1)
+
+summary(model)
+
+model %>% compile(optimizer = optimizer_rmsprop(),
+                  loss = "mae")
+
+history <- model %>% fit(
+  train_gen_data[[1]],train_gen_data[[2]],
+  batch_size = 32,
+  epochs = 20,
+  use_multiprocessing = T
+)
+
+ batch_size_plot <- 17600
+  lookback_plot <- lookback
+  step_plot <- 1 
+  
+  pred_gen <- generator(
+    data,
+    lookback = lookback_plot,
+    delay = 0,
+    min_index = 30000,
+    max_index = 50000,
+    shuffle = FALSE,
+    step = step_plot,
+    batch_size = batch_size_plot
+  )
+  
+  pred_gen_data <- pred_gen()
+  
+  V1 = seq(1, length(pred_gen_data[[2]]))
+  
+  plot_data <-
+    as.data.frame(cbind(V1, pred_gen_data[[2]]))
+  
+  inputdata <- pred_gen_data[[1]]
+  dim(inputdata) <- c(batch_size_plot, lookback, 14)
+  
+  pred_out <- model %>%
+    predict(inputdata) 
+  
+  plot_data <-
+    cbind(plot_data, pred_out)
+  
+  p <-
+    ggplot(plot_data, aes(x = V1, y = V2)) + geom_point(colour = "blue", size = 0.1,alpha=0.4)
+  p <-
+    p + geom_point(aes(x = V1, y = pred_out), colour = "red", size = 0.1 ,alpha=0.4)
+  
+  p
 
 ```
 

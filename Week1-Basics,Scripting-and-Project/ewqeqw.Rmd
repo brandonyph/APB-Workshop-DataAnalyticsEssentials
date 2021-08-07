@@ -1,0 +1,20 @@
+---
+title: "thisismy thing"
+author: "Brandon"
+date: "8/7/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+## install.packages('pheatmap')
+## not run
+```
+
+```{r}
+library(pheatmap)
+
+x <- matrix(rnorm(1000),nrow=100)
+
+pheatmap(x)
+```
+
