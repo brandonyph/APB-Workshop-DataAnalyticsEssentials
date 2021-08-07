@@ -159,9 +159,13 @@ genesname <- as.data.frame(rownames(parathyroidGenesSE))
 
 From the data above, extract 
 1a. Apply the Columns Name to the count matrix using the colnames() function based on the sample run name
+
 1b. Apply the Row Name to the count matrix using the rownames() function based on the genes names
+
 1c  Extract Sample (RUN) name of DPN treatment on 12h only
+
 1b. Subset the countmatrix to only containly the newly set criteria 
+
 1b. plot a heatmap using pheatmap on the newly extract col information
 
 

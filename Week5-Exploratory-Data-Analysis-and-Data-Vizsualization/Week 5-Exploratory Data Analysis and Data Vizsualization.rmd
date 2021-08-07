@@ -250,7 +250,7 @@ ggdendrogram(hc, rotate = TRUE, size = 2)
 ```
 
 ```{r PCA Plot}
-library(factoMineR)
+library(FactoMineR)
 library(factoextra)
 
 res.pca <- prcomp(iris[, -5],  scale = TRUE)
