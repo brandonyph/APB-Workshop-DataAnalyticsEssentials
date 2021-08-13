@@ -86,3 +86,25 @@ data2
     # list
     # Data Frame
     # S4 Objects
+
+#Woould be able to idensity all the datype inside the dataset below
+#use datasets::[name of dataset]
+#iris  
+#AirPassengers
+#airquality
+#mtcars
+#CO2
+#HairEyeColor
+#
+
+#Would you able to download a library from bioconductor called parathyroidSE,
+# inspect the data from this package on how you can download it into your environment and the datatype of the object downloaded 
+# you should get a SE object with all the experiment datainside
+
+
+#Would you be able to install GEOquery on your R and download a dataset
+#what is the structure of the dataset 
+#you can use this  gse <- getGEO(filename=system.file("extdata/GSE781_family.soft.gz",package="GEOquery"))
+## https://bioconductor.org/packages/release/bioc/vignettes/GEOquery/inst/doc/GEOquery.html
+#Check here
+
