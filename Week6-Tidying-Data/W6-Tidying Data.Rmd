@@ -1,0 +1,175 @@
+---
+title: "Week 5 Tidying Data"
+output: html_notebook
+---
+
+# Part One - UBS
+
+```{r}
+library(alr4)
+library(tidyverse)
+library(ggplot2)
+
+```
+
+
+```{r}
+UBSprices <- as.data.frame(UBSprices)
+head(UBSprices)
+```
+
+#Questions to Answer
+#  1. What is the general trend og rice prices in all countries from 2003 to 2009, 
+#  use a boxplot to illustrate your findings 
+
+```{r}
+tidy_ubs <- UBSprices[,c(3,6)]
+
+tidy_ubs2 <- gather(data = tidy_ubs, key = year, value = price, rice2003, rice2009)
+
+head(tidy_ubs2)
+
+tidy_ubs2$year <- parse_number(tidy_ubs2$year)
+tidy_ubs2$year  <- as.factor(tidy_ubs2$year)
+
+ggplot(data=tidy_ubs2,aes(x=year, y=price)) + 
+        geom_boxplot()
+```
+
+#2. Subset a list of countries that have an increase of rice price from 2003 to 2009? 
+#  plot the countries in a bar chart showing the differences in prices
+#  subet another list of countries that have an decrease of price from 2003 to 2009
+
+```{r}
+tidy_ubs
+
+tidy_ubs$diff <- tidy_ubs$rice2009 - tidy_ubs$rice2003
+
+increase_rice <- tidy_ubs[tidy_ubs$diff>0,]
+increase_rice$countries <- as.factor(rownames(increase_rice))
+
+ggplot(data=increase_rice,aes(x=diff,y=countries)) + 
+  geom_col()
+```
+
+#reordering countries by differences 
+
+```{r}
+increase_rice$countries <- fct_reorder(increase_rice$countries, increase_rice$diff) 
+
+ggplot(data=increase_rice,aes(x=diff,y=countries)) + 
+  geom_col()
+
+```
+
+
+##countries with decreased riceprice
+```{r}
+
+decrease_rice <- tidy_ubs[tidy_ubs$diff<0,]
+
+decrease_rice$countries <- as.factor(rownames(decrease_rice))
+
+ggplot(data=decrease_rice,aes(x=diff,y=countries)) + 
+  geom_col()
+```
+
+# reordering countries by differences 
+
+```{r}
+decrease_rice$countries <- fct_reorder(decrease_rice$countries, decrease_rice$diff) 
+
+ggplot(data=decrease_rice,aes(x=diff,y=countries)) + 
+  geom_col()
+```
+
+########################################################################
+# Part Two - NYC Flights
+########################################################################
+
+```{r}
+
+library(nycflights13)
+flights <- flights
+str(flights)
+
+
+#1 Select all flights in November
+nov_flights = flights %>% 
+                filter(month == 11)
+
+#2 select all flights on 28th of November
+nov28 <- flights %>% 
+                filter(month == 11, day == 28)
+
+#3 Select from the previous condition, only the columns (flight, origin, distance, air_time)
+nov28_4 = nov28 %>% 
+              select(flight, origin, distance, air_time)
+
+
+#4 Create a new column with the speed of the slight using the question 3
+nov28_with_speed = nov28_4 %>% 
+              mutate(speed = distance / air_time * 60)
+
+#5. Create a summary of the average speed of all dataset
+nov28_with_speed %>%
+              summarize(avg_speed = mean(speed,na.rm=TRUE))
+
+#6. Create the same summary of flight from different origins
+nov28_with_speed %>% 
+              group_by(origin) %>%
+              summarize(mean_dist = mean(distance))
+
+
+```
+
+Calculate destination delay based on destination, and filter the final ouput
+
+```{r}
+delays <- flights %>% 
+            group_by(dest) %>% 
+            summarise(
+              count = n(),
+              dist = mean(distance, na.rm = TRUE),
+              delay = mean(arr_delay, na.rm = TRUE)
+            ) %>% 
+               filter(count > 20, dest != "HNL")
+
+library(ggplot2)
+ggplot(data = delays, mapping = aes(x = dist, y = delay)) +
+  geom_point(aes(size = count), alpha = 1/3) +
+  geom_smooth(se = FALSE)
+
+```
+
+# Real World Example
+ParathyroidSE is a dataset from bioconduct that contain a RNA-Seq experiment
+
+```{r}
+BiocManager::install("parathyroidSE")
+library(parathyroidSE)
+
+data(parathyroidGenesSE)
+countmatrix <- as.data.frame(parathyroidGenesSE@assays$data$counts)
+sample <- as.data.frame(parathyroidGenesSE@colData)
+genesname <- as.data.frame(rownames(parathyroidGenesSE))
+
+```
+
+
+From the data above, extract 
+1a. Apply the Columns Name to the count matrix using the colnames() function based on the sample run name
+
+1b. Apply the Row Name to the count matrix using the rownames() function based on the genes names
+
+1c  Extract Sample (RUN) name of DPN treatment on 12h only
+
+1b. Subset the countmatrix to only containly the newly set criteria 
+
+1b. plot a heatmap using pheatmap on the newly extract col information
+
+
+
+
+
+

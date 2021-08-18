@@ -1,0 +1,315 @@
+---
+title: "Data Tidying and Transformation"
+author: "BrandonYEO"
+date: "5/13/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Installing packages and Load pacakges into environment
+
+```{r cars}
+install.packages("dplyr")
+library(dplyr)
+
+install.packages("nycflights13")
+library(nycflights13)
+
+```
+
+loading intergrated dataset and create object 
+
+Try on your side with the import csv and import excel from the top right corner 
+
+```{r}
+iris <- iris
+cars <- cars
+airpas <- AirPassengers
+```
+
+
+view all availible dataset on your Rstudio
+```{r}
+data() 
+```
+
+Convert all data to dataframe
+
+```{r}
+iris <- as.data.frame(iris)
+cars <- as.data.frame(cars)
+airpas <- as.data.frame(airpas)
+```
+
+
+Now let us load the actual data
+
+You might also have noticed the row of three (or four) letter abbreviations under the column names. These describe the type of each variable:
+
+int stands for integers.
+dbl stands for doubles, or real numbers.
+chr stands for character vectors, or strings.
+dttm stands for date-times (a date + a time).
+
+```{r}
+flights <- as.data.frame(flights)
+dim(flights)
+str(flights)
+```
+
+# The five key dplyr functions that allow you to solve the vast majority of your data manipulation challenges:
+
+1. Pick observations by their values (filter()).
+2. Reorder the rows (arrange()).
+3. Pick variables by their names (select()).
+4. Create new variables with functions of existing variables (mutate()).
+5. Collapse many values down to a single summary (summarise()).
+
+#filter()
+```{r}
+flight_f <- filter(flights, month == 1)
+```
+
+
+or, Using the pipe functions 
+```{r}
+flight_fm <-  flights %>% filter(month == 1) 
+
+# is the same as  
+
+flight_fm <- filter(flights, month == 1)
+```
+
+
+filter based on carrier 
+```{r}
+flight_fc <-  flights %>% filter(carrier == "UA") 
+
+# is the same as  
+
+flight_fc <- filter(flights, carrier == "UA")
+```
+
+
+filter based on carrier 
+```{r}
+flight_ft <-  flights %>% filter(air_time > 300) 
+
+# is the same as  
+
+flight_ft <- filter(flights, air_time > 300)
+```
+
+Using and And OR clause
+1. AND &
+2. OR |
+
+```{r}
+flights_fmOR <- flights %>% filter(month == 11 | month == 12)
+
+flights_fmAND <- flights %>% filter(month <12 & month > 3)
+
+```
+
+
+using the %in%, which select all elements in the vector afterwards 
+```{r}
+flights_fmIN <- flights %>% filter(month %in% c(10, 11))
+
+```
+
+flights that were not delayed (on arrival or departure) by more than two hours, you could use either of the following two filters:
+
+- Exclamation mark (!) reverse the TRUE and FALSE
+
+```{r}
+flights_NotDelay <- flights %>% filter(!(arr_delay > 120 | dep_delay > 120))
+
+flights_Delay <- flights %>% filter((arr_delay > 120 | dep_delay > 120))
+```
+
+Find all flights that
+
+Had an arrival delay of two or more hours
+
+1. Flew to Houston (IAH or HOU)
+2, Were operated by United, American, or Delta (c(“UA”,“DL”,“AA”))
+3. Departed in summer (July, August, and September)
+4. Arrived more than two hours late, but didn't leave late
+5. Departed between midnight and 6am (inclusive)
+
+
+#Arrange() works similarly to filter() except that instead of selecting rows, it changes their order.
+
+```{r}
+flight_arrange <- flights %>% arrange( year, month, day)
+```
+
+To arrrange the data in desc order
+```{r}
+flight_arrange_desc <- flights %>% arrange( desc(dep_delay))
+```
+
+#Due to the memory limitaton in R, all the code below will ont be pass onto a new object 
+
+Using arrange() to sort all missing values
+```{r}
+flights %>% 
+    arrange(desc(is.na(dep_time)),
+           desc(is.na(dep_delay)),
+           desc(is.na(arr_time)), 
+           desc(is.na(arr_delay)),
+           desc(is.na(tailnum)),
+           desc(is.na(air_time)))
+```
+
+ Find the flights that left earliest.
+
+```{r}
+flights %>% 
+    arrange(dep_time)
+```
+
+# Select columns with select() 
+select() allows you to rapidly zoom in on a useful subset using operations based on the names of the variables.
+
+```{r}
+x <- flights %>% select(year, month, day)
+x
+```
+
+
+To get a more summarised look, use the structure, str() function   
+```{r}
+str(x)
+```
+
+
+
+Select columns based on names
+```{r}
+#one criteria
+x <- flights %>% select(starts_with("dep"))
+str(x)
+```
+
+
+```{r}
+#two criteria with an OR clause
+
+x<- flights %>% select(starts_with("dep") | starts_with("arr"))
+str(x)
+```
+
+Using one_of(), to select items from a list
+
+```{r}
+vars <- c("year", "month", "day", "dep_delay", "arr_delay","nonsense")
+
+x <- flights %>% select(one_of(vars))
+
+str(x)
+```
+Using the contains Clause
+```{r}
+x <- flights %>% select(contains("DEP"))
+
+str(x)
+```
+
+# Mutate(). 
+mutate() always adds new columns at the end of your dataset so we’ll start by creating a narrower dataset so we can see the new variables.
+
+```{r}
+dim(flights)
+str(flights)
+```
+```{r}
+x <- flights %>% mutate(new_col = hour*2) 
+dim(x)
+str(x)
+```
+
+Lets use get a closer look
+```{r}
+y <-  flights %>% 
+            mutate(new_col = hour*2) %>% 
+            select(hour,new_col)
+str(y)
+
+```
+```{r}
+##################################################
+flights_sml <- select(flights, 
+                        year:day, 
+                        ends_with("delay"), 
+                        distance, 
+                        air_time
+                      )
+
+x <- mutate(flights_sml,
+          gain = dep_delay - arr_delay,
+          speed = distance / air_time * 60
+        )
+
+str(flights_sml)
+
+str(x)
+```
+```{r}
+x <- flights %>%
+      select( 
+                  year:day, 
+                  ends_with("delay"), 
+                  distance, 
+                  air_time
+            )%>%
+      mutate(flights_sml,
+          gain = dep_delay - arr_delay,
+          speed = distance / air_time * 60
+        )
+
+str(x)
+```
+
+transmute does not preserve the original col
+
+```{r}
+x <- flights %>% transmute(
+              new_hour = dep_time %/% 100,
+              new_minute = dep_time %% 100
+            )
+
+str(x)
+```
+
+
+#Summarise(),  It collapses a data frame to a single row:
+```{r}
+x <- flights %>% summarise(delay = mean(dep_delay, na.rm = TRUE))
+x
+```
+```{r}
+
+x <- flights %>%
+      group_by(year, month, day) %>%
+      summarise(delay = mean(dep_delay, na.rm = TRUE))
+x
+
+dim(x)
+str(x)
+```
+
+
+
+
+
+
+
+
+
+
+
