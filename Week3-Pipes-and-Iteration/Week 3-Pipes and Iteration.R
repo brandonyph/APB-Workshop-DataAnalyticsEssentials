@@ -9,15 +9,20 @@ iris %>% head(10)
 # Using the dot place-holder
 "Ceci n'est pas une pipe" %>% gsub("une", "un", .)
 
-  # When dot is nested, lhs is still placed first:
+# When dot is nested, lhs is still placed first:
 sample(1:10) %>% paste0(LETTERS[.])
+# essentially, paste0(sample(1:10),LETTERS[sample(1:10)])
 #>  [1] "6F"  "1A"  "5E"  "7G"  "8H"  "4D"  "10J" "2B"  "9I"  "3C" 
 
 # This can be avoided:
-rnorm(100) %>% {c(min(.), mean(.), max(.))} %>% floor()
+rnorm(100) %>% 
+  {c(min(.), mean(.), max(.))} %>% 
+  floor()
 #> [1] -3 -1  2
 
 # Lambda expressions: 
+## Simply put, a lambda function is just like any normal python function, 
+## except that it has no name when defining it, and it is contained in one line of code
 iris %>%
   {
     size <- sample(1:10, size = 1)
@@ -51,7 +56,9 @@ iris %>%
 
 
 # Building unary functions with %>%
-trig_fest <- . %>% tan %>% cos %>% sin
+## A unary function is a function that takes one argument. 
+
+trig_fest <- . %>% tan
 
 1:10 %>% trig_fest
 #>  [1]  0.0133878 -0.5449592  0.8359477  0.3906486 -0.8257855  0.8180174
@@ -128,6 +135,8 @@ mtrx[1:5, 1:5]
 #############################################################
 # Apply a functino over the rows or columns in a matrix
 #############################################################
+##https://www.guru99.com/r-apply-sapply-tapply.html
+
 m1 <- matrix(C<-(1:10),nrow=5, ncol=6)
 m1
 a_m1 <- apply(m1, 2, sum)
