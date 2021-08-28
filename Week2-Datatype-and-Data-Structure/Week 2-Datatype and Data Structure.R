@@ -1,12 +1,12 @@
 #determine the data type for each of the below
   #Boolean
   #Numeric
-  #Interger
+  #Integer
   #Complex
   #Character
   #Raw
 
-  v <- TRUE 
+  v <- TRUE
   v <- 23.5
   v <- 2L
   v <- 2+5i
@@ -21,7 +21,7 @@ apple <- c('red','green',"yellow")
 print(apple)
 
 # Matrices,   same type in 2 dimension
-M = matrix( c('a','a','b','c','b','a'), nrow = 2, ncol = 3, byrow = TRUE)
+M <- matrix( c('a','a','b','c','b','a'), nrow = 3, ncol = 2, byrow = TRUE)
 print(M)
 
 #Arrays, multiple type in 2dimensions
@@ -30,7 +30,8 @@ print(a)
 
 #Factors 
 # Create a vector.
-apple_colors <- c('green','green','yellow','red','red','red','green')
+apple_colors <- c('green','Very green','yellow','Very red','red','red','green')
+apple_colors  <- as.factor(apple_colors )
 
 # Create a factor object. 1 dimension, multiple levels
 factor_apple <- factor(apple_colors)
@@ -57,23 +58,24 @@ BMI <- 	data.frame(
 )
 print(BMI)
 
+library(tidyverse)
+BMI <- as_tibble(BMI)
 
 #S4 Objects
-setClass("data1",representation(x1="numeric",x2="numeric",x3="character"))
-data1<-new("data1",x1=rnorm(20),x2=rexp(20,1.12),x3=c("TRUE","FALSE"))
+setClass("news4class1",representation(x1="numeric",x2="numeric",x3="logical"))
+data1<-new("news4class1",x1=rnorm(20),x2=rexp(20,1.12),x3=c(TRUE,FALSE))
 data1
 
-setClass("data2",representation(x1="integer",x2="numeric"))
-data2<-new("data2",x1=rpois(200,5),x2=rexp(50,1.12))
+setClass("news4class2",representation(x1="integer",x2="numeric"))
+data2<-new("news4class2",x1=rpois(200,5),x2=rexp(50,1.12))
 data2
-
 
 
 #Can you write out a use case of each of the data type listed above? 
 # Data Type
     # Boolean
     # Numeric
-    # Interger
+    # Integer
     # Complex
     # Character
     # Raw
@@ -87,15 +89,14 @@ data2
     # Data Frame
     # S4 Objects
 
-#Woould be able to idensity all the datype inside the dataset below
+#Would be able to density all the datype inside the data set below
 #use datasets::[name of dataset]
-#iris  
-#AirPassengers
-#airquality
-#mtcars
-#CO2
-#HairEyeColor
-#
+  #iris  
+  #AirPassengers
+  #airquality
+  #mtcars
+  #CO2
+  #HairEyeColor
 
 #Would you able to download a library from bioconductor called parathyroidSE,
 # inspect the data from this package on how you can download it into your environment and the datatype of the object downloaded 
@@ -114,3 +115,7 @@ data2
 #GSM objects
 
 
+library(parathyroidSE)
+data(parathyroidExonsSE)
+
+cm <- assay(parathyroidExonsSE)[1:5000,]
