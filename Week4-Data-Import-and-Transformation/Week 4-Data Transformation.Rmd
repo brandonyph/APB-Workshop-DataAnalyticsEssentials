@@ -12,10 +12,10 @@ knitr::opts_chunk$set(echo = TRUE)
 Installing packages and Load pacakges into environment
 
 ```{r cars}
-install.packages("dplyr")
+#install.packages("dplyr")
 library(dplyr)
 
-install.packages("nycflights13")
+#install.packages("nycflights13")
 library(nycflights13)
 
 ```
@@ -292,6 +292,7 @@ str(x)
 x <- flights %>% summarise(delay = mean(dep_delay, na.rm = TRUE))
 x
 ```
+
 ```{r}
 
 x <- flights %>%
@@ -310,16 +311,23 @@ data(parathyroidExonsSE)
 
 cm <- assay(parathyroidExonsSE)[1:5000,]
 
-coldata(parathyroidExonsSE)
+sample <- as.data.frame(colData(parathyroidExonsSE))
 ```
 
-1. Using the same data from last week, would you able to get a summary of the average gene expression value from each patients? you might need to extract the name of the sample using the  
+1. Using the same data from last week, would you able to get a summary of the average gene expression value from each patients? You might need to join the name of the sample to your 
 
 2. from each time frame
 3. from each sample 
-4. 
 
+4, Can you make a new column combining all 3 parameters using the mutate() functions? Do you think you should use mutate()? or should you try to use transmute()?
 
+5. Can you do the same data transformation above now using the new column? You should try the select(contains()) functions from above,   
+
+6. Select sample 1 into a new dataframe and Try to re-arrange the count number from high to low in sample 1 using the arrange command. 
+
+7. can you count the number of genes in sample 1 into 4 categories 1-100, 100-1000, 1000-10000, 10000-anything larger than 10000. You can named them as categories ABCD
+
+8. 
 
 
 
