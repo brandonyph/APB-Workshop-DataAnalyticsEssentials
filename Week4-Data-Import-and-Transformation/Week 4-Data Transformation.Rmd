@@ -303,7 +303,21 @@ dim(x)
 str(x)
 ```
 
+# Workshop Exercise
+```{r}
+library(parathyroidSE)
+data(parathyroidExonsSE)
 
+cm <- assay(parathyroidExonsSE)[1:5000,]
+
+coldata(parathyroidExonsSE)
+```
+
+1. Using the same data from last week, would you able to get a summary of the average gene expression value from each patients? you might need to extract the name of the sample using the  
+
+2. from each time frame
+3. from each sample 
+4. 
 
 
 
