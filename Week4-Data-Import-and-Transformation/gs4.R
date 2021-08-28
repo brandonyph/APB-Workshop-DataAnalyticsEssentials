@@ -1,4 +1,3 @@
-setwd("C:/Users/Brandon_yeo/Desktop/GoogleTut")
 
 #install.packages(c("googlesheets4", "googledrive"))
 
@@ -13,13 +12,13 @@ Sample_Dataset <- Sample_Dataset_raw[1:100,]
 write.csv(Sample_Dataset,file="sample.csv") 
 
 #################################################
-#- UPloading a CSV to Googl Drive as spreadsheet
+#- UPloading a CSV to Google Drive as Spreadsheet
 #################################################
 td <- drive_get("https://drive.google.com/drive/folders/1ZBBNomGMas7jP8tRYomtSz0PvAESjOae")
 drive_upload("sample.csv",name = "Sample1",type = "spreadsheet",path=as_id(td))
 
 #################################################
-#- Updating a CSV to Googl Drive as spreadsheet
+#- Updating a CSV to Google Drive as spreadsheet
 #################################################
 td <- drive_get("https://drive.google.com/drive/folders/1ZBBNomGMas7jP8tRYomtSz0PvAESjOae")
 drive_put("sample.csv",name = "Sample1",type = "spreadsheet",path=as_id(td))
