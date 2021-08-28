@@ -1,7 +1,7 @@
 library(magrittr)
 
 # Basic use:
-iris %>% head
+iris %>% head()
 
 # Use with lhs as first argument
 iris %>% head(10)
@@ -11,13 +11,18 @@ iris %>% head(10)
 
 # When dot is nested, lhs is still placed first:
 sample(1:10) %>% paste0(LETTERS[.])
+# essentially, paste0(sample(1:10),LETTERS[sample(1:10)])
 #>  [1] "6F"  "1A"  "5E"  "7G"  "8H"  "4D"  "10J" "2B"  "9I"  "3C" 
 
 # This can be avoided:
-rnorm(100) %>% {c(min(.), mean(.), max(.))} %>% floor()
+rnorm(100) %>% 
+  {c(min(.), mean(.), max(.))} %>% 
+  floor()
 #> [1] -3 -1  2
 
 # Lambda expressions: 
+## Simply put, a lambda function is just like any normal python function, 
+## except that it has no name when defining it, and it is contained in one line of code
 iris %>%
   {
     size <- sample(1:10, size = 1)
@@ -51,7 +56,9 @@ iris %>%
 
 
 # Building unary functions with %>%
-trig_fest <- . %>% tan %>% cos %>% sin
+## A unary function is a function that takes one argument. 
+
+trig_fest <- . %>% tan
 
 1:10 %>% trig_fest
 #>  [1]  0.0133878 -0.5449592  0.8359477  0.3906486 -0.8257855  0.8180174
@@ -128,6 +135,8 @@ mtrx[1:5, 1:5]
 #############################################################
 # Apply a functino over the rows or columns in a matrix
 #############################################################
+##https://www.guru99.com/r-apply-sapply-tapply.html
+
 m1 <- matrix(C<-(1:10),nrow=5, ncol=6)
 m1
 a_m1 <- apply(m1, 2, sum)
@@ -153,7 +162,7 @@ movies_lower <-lapply(movies, tolower)
 movies_lower
 
 #output as a vector/matrix
-movies_lower <-sapply(movies, tolower)
+movies_lower <- sapply(movies, tolower)
 movies_lower
 
 
@@ -165,28 +174,29 @@ data(parathyroidExonsSE)
 
 cm <- assay(parathyroidExonsSE)[1:5000,]
 
-#1. Construct a plot of the first sample in the matrix 
+#1. Construct a histogram plot of the first sample in the matrix 
 #    to visualized the overall distribution of expressions
+#    p/s: you might need some normalization process for this, try log10()
 
 #2. Use a loop function, construct the same plot over all 27 sample individually 
 #    save the plot to a local drive as a PNG. Try chaining all command into a single chunk
+#    can you try to compare the expression histogram before and after normalization?
 
 #3. Using pheatmap, identify possible cluster of samples and separate the sample 
 #    into a minimal of 2 cluster 
 
-#4. Construct the heatmap of expression of each cluster 
-#     save the plot to a local drive as a PNG. Try chaining all command into a single chunk
+#4. Construct the heatmap of expression of each cluster (cluster 1, cluster 2) 
+#     save the plot to a local drive as a PNG. 
+#     Try chaining all command into a single chunk if you want a challenge
 
-#5. Create a function that would allow the saving of images from indivudal columns
+#5. Create a script that would allow the saving of images from individual columns
 #     apply this function to the matrix using the apply() functions 
 
 #6. Attach the colname name to the matrix using colData(parathyroidExonsSE)
-#    Write the code that would allow you do separate then sample based on
+#    Write the code that would allow you do separate the sample based on 
 #       a. Treatment,
 #       b. Time
-#   Using a loop, create function that automatically create folder from the different analysis method
-#   Apply this function to the original dataset by combining both countmatrix and Col_data
-
+#    construct a new object that contains the expression value of only those samples 
 
 
 
