@@ -337,6 +337,11 @@ data(parathyroidExonsSE)
 cm <- assay(parathyroidExonsSE)[1:5000,]
 
 sample <- as.data.frame(colData(parathyroidExonsSE))
+
+parathyroidExonsSE@colData
+colData(parathyroidExonsSE)
+
+
 ```
 
 

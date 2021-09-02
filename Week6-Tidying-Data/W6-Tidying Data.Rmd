@@ -164,7 +164,7 @@ From the data above, extract
 
 1c  Extract Sample (RUN) name of DPN treatment on 12h only
 
-1b. Subset the countmatrix to only containly the newly set criteria 
+1b. Subset the countmatrix to only containing the newly set criteria 
 
 1b. plot a heatmap using pheatmap on the newly extract col information
 

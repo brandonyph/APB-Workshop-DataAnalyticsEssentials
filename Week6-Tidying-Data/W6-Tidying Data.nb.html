@@ -219,60 +219,30 @@ pre code {
 <h1>Part One - UBS</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubGlicmFyeShhbHI0KVxubGlicmFyeSh0aWR5dmVyc2UpXG5saWJyYXJ5KGdncGxvdDIpXG5cbmBgYFxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuYGBgclxubGlicmFyeShhbHI0KVxubGlicmFyeSh0aWR5dmVyc2UpXG5saWJyYXJ5KGdncGxvdDIpXG5cbmBgYFxuYGBgXG5gYGAifQ== -->
 <pre class="r"><code>```r
+```r
 library(alr4)
 library(tidyverse)
 library(ggplot2)
 </code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuVUJTcHJpY2VzIDwtIGFzLmRhdGEuZnJhbWUoVUJTcHJpY2VzKVxuaGVhZChVQlNwcmljZXMpXG5gYGBcbmBgYCJ9 --&gt;
-
-```r
-```r
-UBSprices &lt;- as.data.frame(UBSprices)
+<pre><code></code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuVUJTcHJpY2VzIDwtIGFzLmRhdGEuZnJhbWUoVUJTcHJpY2VzKVxuaGVhZChVQlNwcmljZXMpXG5gYGAifQ== -->
+<pre class="r"><code>UBSprices &lt;- as.data.frame(UBSprices)
 head(UBSprices)</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-#Questions to Answer
-#  1. What is the general trend og rice prices in all countries from 2003 to 2009, 
-#  use a boxplot to illustrate your findings 
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxudGlkeV91YnMgPC0gVUJTcHJpY2VzWyxjKDMsNildXG5cbnRpZHlfdWJzMiA8LSBnYXRoZXIoZGF0YSA9IHRpZHlfdWJzLCBrZXkgPSB5ZWFyLCB2YWx1ZSA9IHByaWNlLCByaWNlMjAwMywgcmljZTIwMDkpXG5cbmhlYWQodGlkeV91YnMyKVxuXG50aWR5X3ViczIkeWVhciA8LSBwYXJzZV9udW1iZXIodGlkeV91YnMyJHllYXIpXG50aWR5X3ViczIkeWVhciAgPC0gYXMuZmFjdG9yKHRpZHlfdWJzMiR5ZWFyKVxuXG5nZ3Bsb3QoZGF0YT10aWR5X3ViczIsYWVzKHg9eWVhciwgeT1wcmljZSkpICsgXG4gICAgICAgIGdlb21fYm94cGxvdCgpXG5gYGBcbmBgYCJ9 --&gt;
-
-```r
-```r
-tidy_ubs &lt;- UBSprices[,c(3,6)]
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>#Questions to Answer # 1. What is the general trend og rice prices in all countries from 2003 to 2009, # use a boxplot to illustrate your findings</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGlkeV91YnMgPC0gVUJTcHJpY2VzWyxjKDMsNildXG5cbnRpZHlfdWJzMiA8LSBnYXRoZXIoZGF0YSA9IHRpZHlfdWJzLCBrZXkgPSB5ZWFyLCB2YWx1ZSA9IHByaWNlLCByaWNlMjAwMywgcmljZTIwMDkpXG5cbmhlYWQodGlkeV91YnMyKVxuXG50aWR5X3ViczIkeWVhciA8LSBwYXJzZV9udW1iZXIodGlkeV91YnMyJHllYXIpXG50aWR5X3ViczIkeWVhciAgPC0gYXMuZmFjdG9yKHRpZHlfdWJzMiR5ZWFyKVxuXG5nZ3Bsb3QoZGF0YT10aWR5X3ViczIsYWVzKHg9eWVhciwgeT1wcmljZSkpICsgXG4gICAgICAgIGdlb21fYm94cGxvdCgpXG5gYGAifQ== -->
+<pre class="r"><code>tidy_ubs &lt;- UBSprices[,c(3,6)]
 
 tidy_ubs2 &lt;- gather(data = tidy_ubs, key = year, value = price, rice2003, rice2009)
 
@@ -283,31 +253,14 @@ tidy_ubs2$year  &lt;- as.factor(tidy_ubs2$year)
 
 ggplot(data=tidy_ubs2,aes(x=year, y=price)) + 
         geom_boxplot()</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-#2. Subset a list of countries that have an increase of rice price from 2003 to 2009? 
-#  plot the countries in a bar chart showing the differences in prices
-#  subet another list of countries that have an decrease of price from 2003 to 2009
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxudGlkeV91YnNcblxudGlkeV91YnMkZGlmZiA8LSB0aWR5X3VicyRyaWNlMjAwOSAtIHRpZHlfdWJzJHJpY2UyMDAzXG5cbmluY3JlYXNlX3JpY2UgPC0gdGlkeV91YnNbdGlkeV91YnMkZGlmZj4wLF1cbmluY3JlYXNlX3JpY2UkY291bnRyaWVzIDwtIGFzLmZhY3Rvcihyb3duYW1lcyhpbmNyZWFzZV9yaWNlKSlcblxuZ2dwbG90KGRhdGE9aW5jcmVhc2VfcmljZSxhZXMoeD1kaWZmLHk9Y291bnRyaWVzKSkgKyBcbiAgZ2VvbV9jb2woKVxuYGBgXG5gYGAifQ== --&gt;
-
-```r
-```r
-tidy_ubs
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>#2. Subset a list of countries that have an increase of rice price from 2003 to 2009? # plot the countries in a bar chart showing the differences in prices # subet another list of countries that have an decrease of price from 2003 to 2009</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGlkeV91YnNcblxudGlkeV91YnMkZGlmZiA8LSB0aWR5X3VicyRyaWNlMjAwOSAtIHRpZHlfdWJzJHJpY2UyMDAzXG5cbmluY3JlYXNlX3JpY2UgPC0gdGlkeV91YnNbdGlkeV91YnMkZGlmZj4wLF1cbmluY3JlYXNlX3JpY2UkY291bnRyaWVzIDwtIGFzLmZhY3Rvcihyb3duYW1lcyhpbmNyZWFzZV9yaWNlKSlcblxuZ2dwbG90KGRhdGE9aW5jcmVhc2VfcmljZSxhZXMoeD1kaWZmLHk9Y291bnRyaWVzKSkgKyBcbiAgZ2VvbV9jb2woKVxuYGBgIn0= -->
+<pre class="r"><code>tidy_ubs
 
 tidy_ubs$diff &lt;- tidy_ubs$rice2009 - tidy_ubs$rice2003
 
@@ -316,113 +269,60 @@ increase_rice$countries &lt;- as.factor(rownames(increase_rice))
 
 ggplot(data=increase_rice,aes(x=diff,y=countries)) + 
   geom_col()</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-#reordering countries by differences 
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuaW5jcmVhc2VfcmljZSRjb3VudHJpZXMgPC0gZmN0X3Jlb3JkZXIoaW5jcmVhc2VfcmljZSRjb3VudHJpZXMsIGluY3JlYXNlX3JpY2UkZGlmZikgXG5cbmdncGxvdChkYXRhPWluY3JlYXNlX3JpY2UsYWVzKHg9ZGlmZix5PWNvdW50cmllcykpICsgXG4gIGdlb21fY29sKClcblxuYGBgXG5gYGAifQ== --&gt;
-
-```r
-```r
-increase_rice$countries &lt;- fct_reorder(increase_rice$countries, increase_rice$diff) 
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>#reordering countries by differences</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaW5jcmVhc2VfcmljZSRjb3VudHJpZXMgPC0gZmN0X3Jlb3JkZXIoaW5jcmVhc2VfcmljZSRjb3VudHJpZXMsIGluY3JlYXNlX3JpY2UkZGlmZikgXG5cbmdncGxvdChkYXRhPWluY3JlYXNlX3JpY2UsYWVzKHg9ZGlmZix5PWNvdW50cmllcykpICsgXG4gIGdlb21fY29sKClcblxuYGBgIn0= -->
+<pre class="r"><code>increase_rice$countries &lt;- fct_reorder(increase_rice$countries, increase_rice$diff) 
 
 ggplot(data=increase_rice,aes(x=diff,y=countries)) + 
   geom_col()
 </code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-
-##countries with decreased riceprice
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuXG5kZWNyZWFzZV9yaWNlIDwtIHRpZHlfdWJzW3RpZHlfdWJzJGRpZmY8MCxdXG5cbmRlY3JlYXNlX3JpY2UkY291bnRyaWVzIDwtIGFzLmZhY3Rvcihyb3duYW1lcyhkZWNyZWFzZV9yaWNlKSlcblxuZ2dwbG90KGRhdGE9ZGVjcmVhc2VfcmljZSxhZXMoeD1kaWZmLHk9Y291bnRyaWVzKSkgKyBcbiAgZ2VvbV9jb2woKVxuYGBgXG5gYGAifQ== --&gt;
-
-```r
-```r
-
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>##countries with decreased riceprice</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5kZWNyZWFzZV9yaWNlIDwtIHRpZHlfdWJzW3RpZHlfdWJzJGRpZmY8MCxdXG5cbmRlY3JlYXNlX3JpY2UkY291bnRyaWVzIDwtIGFzLmZhY3Rvcihyb3duYW1lcyhkZWNyZWFzZV9yaWNlKSlcblxuZ2dwbG90KGRhdGE9ZGVjcmVhc2VfcmljZSxhZXMoeD1kaWZmLHk9Y291bnRyaWVzKSkgKyBcbiAgZ2VvbV9jb2woKVxuYGBgIn0= -->
+<pre class="r"><code>
 decrease_rice &lt;- tidy_ubs[tidy_ubs$diff&lt;0,]
 
 decrease_rice$countries &lt;- as.factor(rownames(decrease_rice))
 
 ggplot(data=decrease_rice,aes(x=diff,y=countries)) + 
   geom_col()</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-# reordering countries by differences 
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZGVjcmVhc2VfcmljZSRjb3VudHJpZXMgPC0gZmN0X3Jlb3JkZXIoZGVjcmVhc2VfcmljZSRjb3VudHJpZXMsIGRlY3JlYXNlX3JpY2UkZGlmZikgXG5cbmdncGxvdChkYXRhPWRlY3JlYXNlX3JpY2UsYWVzKHg9ZGlmZix5PWNvdW50cmllcykpICsgXG4gIGdlb21fY29sKClcbmBgYFxuYGBgIn0= --&gt;
-
-```r
-```r
-decrease_rice$countries &lt;- fct_reorder(decrease_rice$countries, decrease_rice$diff) 
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="reordering-countries-by-differences" class="section level1">
+<h1>reordering countries by differences</h1>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGVjcmVhc2VfcmljZSRjb3VudHJpZXMgPC0gZmN0X3Jlb3JkZXIoZGVjcmVhc2VfcmljZSRjb3VudHJpZXMsIGRlY3JlYXNlX3JpY2UkZGlmZikgXG5cbmdncGxvdChkYXRhPWRlY3JlYXNlX3JpY2UsYWVzKHg9ZGlmZix5PWNvdW50cmllcykpICsgXG4gIGdlb21fY29sKClcbmBgYCJ9 -->
+<pre class="r"><code>decrease_rice$countries &lt;- fct_reorder(decrease_rice$countries, decrease_rice$diff) 
 
 ggplot(data=decrease_rice,aes(x=diff,y=countries)) + 
   geom_col()</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-########################################################################
-# Part Two - NYC Flights
-########################################################################
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuXG5saWJyYXJ5KG55Y2ZsaWdodHMxMylcbmZsaWdodHMgPC0gZmxpZ2h0c1xuc3RyKGZsaWdodHMpXG5cblxuIzEgU2VsZWN0IGFsbCBmbGlnaHRzIGluIE5vdmVtYmVyXG5ub3ZfZmxpZ2h0cyA9IGZsaWdodHMgJT4lIFxuICAgICAgICAgICAgICAgIGZpbHRlcihtb250aCA9PSAxMSlcblxuIzIgc2VsZWN0IGFsbCBmbGlnaHRzIG9uIDI4dGggb2YgTm92ZW1iZXJcbm5vdjI4IDwtIGZsaWdodHMgJT4lIFxuICAgICAgICAgICAgICAgIGZpbHRlcihtb250aCA9PSAxMSwgZGF5ID09IDI4KVxuXG4jMyBTZWxlY3QgZnJvbSB0aGUgcHJldmlvdXMgY29uZGl0aW9uLCBvbmx5IHRoZSBjb2x1bW5zIChmbGlnaHQsIG9yaWdpbiwgZGlzdGFuY2UsIGFpcl90aW1lKVxubm92MjhfNCA9IG5vdjI4ICU+JSBcbiAgICAgICAgICAgICAgc2VsZWN0KGZsaWdodCwgb3JpZ2luLCBkaXN0YW5jZSwgYWlyX3RpbWUpXG5cblxuIzQgQ3JlYXRlIGEgbmV3IGNvbHVtbiB3aXRoIHRoZSBzcGVlZCBvZiB0aGUgc2xpZ2h0IHVzaW5nIHRoZSBxdWVzdGlvbiAzXG5ub3YyOF93aXRoX3NwZWVkID0gbm92MjhfNCAlPiUgXG4gICAgICAgICAgICAgIG11dGF0ZShzcGVlZCA9IGRpc3RhbmNlIC8gYWlyX3RpbWUgKiA2MClcblxuIzUuIENyZWF0ZSBhIHN1bW1hcnkgb2YgdGhlIGF2ZXJhZ2Ugc3BlZWQgb2YgYWxsIGRhdGFzZXRcbm5vdjI4X3dpdGhfc3BlZWQgJT4lXG4gICAgICAgICAgICAgIHN1bW1hcml6ZShhdmdfc3BlZWQgPSBtZWFuKHNwZWVkLG5hLnJtPVRSVUUpKVxuXG4jNi4gQ3JlYXRlIHRoZSBzYW1lIHN1bW1hcnkgb2YgZmxpZ2h0IGZyb20gZGlmZmVyZW50IG9yaWdpbnNcbm5vdjI4X3dpdGhfc3BlZWQgJT4lIFxuICAgICAgICAgICAgICBncm91cF9ieShvcmlnaW4pICU+JVxuICAgICAgICAgICAgICBzdW1tYXJpemUobWVhbl9kaXN0ID0gbWVhbihkaXN0YW5jZSkpXG5cblxuYGBgXG5gYGAifQ== --&gt;
-
-```r
-```r
-
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<div id="section" class="section level72">
+<p class="heading"></p>
+</div>
+</div>
+<div id="part-two---nyc-flights" class="section level1">
+<h1>Part Two - NYC Flights</h1>
+<div id="section-1" class="section level72">
+<p class="heading"></p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5saWJyYXJ5KG55Y2ZsaWdodHMxMylcbmZsaWdodHMgPC0gZmxpZ2h0c1xuc3RyKGZsaWdodHMpXG5cblxuIzEgU2VsZWN0IGFsbCBmbGlnaHRzIGluIE5vdmVtYmVyXG5ub3ZfZmxpZ2h0cyA9IGZsaWdodHMgJT4lIFxuICAgICAgICAgICAgICAgIGZpbHRlcihtb250aCA9PSAxMSlcblxuIzIgc2VsZWN0IGFsbCBmbGlnaHRzIG9uIDI4dGggb2YgTm92ZW1iZXJcbm5vdjI4IDwtIGZsaWdodHMgJT4lIFxuICAgICAgICAgICAgICAgIGZpbHRlcihtb250aCA9PSAxMSwgZGF5ID09IDI4KVxuXG4jMyBTZWxlY3QgZnJvbSB0aGUgcHJldmlvdXMgY29uZGl0aW9uLCBvbmx5IHRoZSBjb2x1bW5zIChmbGlnaHQsIG9yaWdpbiwgZGlzdGFuY2UsIGFpcl90aW1lKVxubm92MjhfNCA9IG5vdjI4ICU+JSBcbiAgICAgICAgICAgICAgc2VsZWN0KGZsaWdodCwgb3JpZ2luLCBkaXN0YW5jZSwgYWlyX3RpbWUpXG5cblxuIzQgQ3JlYXRlIGEgbmV3IGNvbHVtbiB3aXRoIHRoZSBzcGVlZCBvZiB0aGUgc2xpZ2h0IHVzaW5nIHRoZSBxdWVzdGlvbiAzXG5ub3YyOF93aXRoX3NwZWVkID0gbm92MjhfNCAlPiUgXG4gICAgICAgICAgICAgIG11dGF0ZShzcGVlZCA9IGRpc3RhbmNlIC8gYWlyX3RpbWUgKiA2MClcblxuIzUuIENyZWF0ZSBhIHN1bW1hcnkgb2YgdGhlIGF2ZXJhZ2Ugc3BlZWQgb2YgYWxsIGRhdGFzZXRcbm5vdjI4X3dpdGhfc3BlZWQgJT4lXG4gICAgICAgICAgICAgIHN1bW1hcml6ZShhdmdfc3BlZWQgPSBtZWFuKHNwZWVkLG5hLnJtPVRSVUUpKVxuXG4jNi4gQ3JlYXRlIHRoZSBzYW1lIHN1bW1hcnkgb2YgZmxpZ2h0IGZyb20gZGlmZmVyZW50IG9yaWdpbnNcbm5vdjI4X3dpdGhfc3BlZWQgJT4lIFxuICAgICAgICAgICAgICBncm91cF9ieShvcmlnaW4pICU+JVxuICAgICAgICAgICAgICBzdW1tYXJpemUobWVhbl9kaXN0ID0gbWVhbihkaXN0YW5jZSkpXG5cblxuYGBgIn0= -->
+<pre class="r"><code>
 library(nycflights13)
 flights &lt;- flights
 str(flights)
@@ -454,66 +354,39 @@ nov28_with_speed %&gt;%
               group_by(origin) %&gt;%
               summarize(mean_dist = mean(distance))
 </code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-Calculate destination delay based on destination, and filter the final ouput
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZGVsYXlzIDwtIGZsaWdodHMgJT4lIFxuICAgICAgICAgICAgZ3JvdXBfYnkoZGVzdCkgJT4lIFxuICAgICAgICAgICAgc3VtbWFyaXNlKFxuICAgICAgICAgICAgICBjb3VudCA9IG4oKSxcbiAgICAgICAgICAgICAgZGlzdCA9IG1lYW4oZGlzdGFuY2UsIG5hLnJtID0gVFJVRSksXG4gICAgICAgICAgICAgIGRlbGF5ID0gbWVhbihhcnJfZGVsYXksIG5hLnJtID0gVFJVRSlcbiAgICAgICAgICAgICkgJT4lIFxuICAgICAgICAgICAgICAgZmlsdGVyKGNvdW50ID4gMjAsIGRlc3QgIT0gXFxITkxcXClcblxubGlicmFyeShnZ3Bsb3QyKVxuZ2dwbG90KGRhdGEgPSBkZWxheXMsIG1hcHBpbmcgPSBhZXMoeCA9IGRpc3QsIHkgPSBkZWxheSkpICtcbiAgZ2VvbV9wb2ludChhZXMoc2l6ZSA9IGNvdW50KSwgYWxwaGEgPSAxLzMpICtcbiAgZ2VvbV9zbW9vdGgoc2UgPSBGQUxTRSlcblxuYGBgXG5gYGAifQ== --&gt;
-
-```r
-```r
-delays &lt;- flights %&gt;% 
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Calculate destination delay based on destination, and filter the final ouput</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGVsYXlzIDwtIGZsaWdodHMgJT4lIFxuICAgICAgICAgICAgZ3JvdXBfYnkoZGVzdCkgJT4lIFxuICAgICAgICAgICAgc3VtbWFyaXNlKFxuICAgICAgICAgICAgICBjb3VudCA9IG4oKSxcbiAgICAgICAgICAgICAgZGlzdCA9IG1lYW4oZGlzdGFuY2UsIG5hLnJtID0gVFJVRSksXG4gICAgICAgICAgICAgIGRlbGF5ID0gbWVhbihhcnJfZGVsYXksIG5hLnJtID0gVFJVRSlcbiAgICAgICAgICAgICkgJT4lIFxuICAgICAgICAgICAgICAgZmlsdGVyKGNvdW50ID4gMjAsIGRlc3QgIT0gXCJITkxcIilcblxubGlicmFyeShnZ3Bsb3QyKVxuZ2dwbG90KGRhdGEgPSBkZWxheXMsIG1hcHBpbmcgPSBhZXMoeCA9IGRpc3QsIHkgPSBkZWxheSkpICtcbiAgZ2VvbV9wb2ludChhZXMoc2l6ZSA9IGNvdW50KSwgYWxwaGEgPSAxLzMpICtcbiAgZ2VvbV9zbW9vdGgoc2UgPSBGQUxTRSlcblxuYGBgIn0= -->
+<pre class="r"><code>delays &lt;- flights %&gt;% 
             group_by(dest) %&gt;% 
             summarise(
               count = n(),
               dist = mean(distance, na.rm = TRUE),
               delay = mean(arr_delay, na.rm = TRUE)
             ) %&gt;% 
-               filter(count &gt; 20, dest != \HNL\)
+               filter(count &gt; 20, dest != &quot;HNL&quot;)
 
 library(ggplot2)
 ggplot(data = delays, mapping = aes(x = dist, y = delay)) +
   geom_point(aes(size = count), alpha = 1/3) +
   geom_smooth(se = FALSE)
 </code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-# Real World Example
-ParathyroidSE is a dataset from bioconduct that contain a RNA-Seq experiment
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuQmlvY01hbmFnZXI6Omluc3RhbGwoXFxwYXJhdGh5cm9pZFNFXFwpXG5saWJyYXJ5KHBhcmF0aHlyb2lkU0UpXG5cbmRhdGEocGFyYXRoeXJvaWRHZW5lc1NFKVxuY291bnRtYXRyaXggPC0gYXMuZGF0YS5mcmFtZShwYXJhdGh5cm9pZEdlbmVzU0VAYXNzYXlzJGRhdGEkY291bnRzKVxuc2FtcGxlIDwtIGFzLmRhdGEuZnJhbWUocGFyYXRoeXJvaWRHZW5lc1NFQGNvbERhdGEpXG5nZW5lc25hbWUgPC0gYXMuZGF0YS5mcmFtZShyb3duYW1lcyhwYXJhdGh5cm9pZEdlbmVzU0UpKVxuXG5gYGBcbmBgYCJ9 --&gt;
-
-```r
-```r
-BiocManager::install(\parathyroidSE\)
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+</div>
+<div id="real-world-example" class="section level1">
+<h1>Real World Example</h1>
+<p>ParathyroidSE is a dataset from bioconduct that contain a RNA-Seq experiment</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQmlvY01hbmFnZXI6Omluc3RhbGwoXCJwYXJhdGh5cm9pZFNFXCIpXG5saWJyYXJ5KHBhcmF0aHlyb2lkU0UpXG5cbmRhdGEocGFyYXRoeXJvaWRHZW5lc1NFKVxuY291bnRtYXRyaXggPC0gYXMuZGF0YS5mcmFtZShwYXJhdGh5cm9pZEdlbmVzU0VAYXNzYXlzJGRhdGEkY291bnRzKVxuc2FtcGxlIDwtIGFzLmRhdGEuZnJhbWUocGFyYXRoeXJvaWRHZW5lc1NFQGNvbERhdGEpXG5nZW5lc25hbWUgPC0gYXMuZGF0YS5mcmFtZShyb3duYW1lcyhwYXJhdGh5cm9pZEdlbmVzU0UpKVxuXG5gYGAifQ== -->
+<pre class="r"><code>BiocManager::install(&quot;parathyroidSE&quot;)
 library(parathyroidSE)
 
 data(parathyroidGenesSE)
@@ -521,19 +394,18 @@ countmatrix &lt;- as.data.frame(parathyroidGenesSE@assays$data$counts)
 sample &lt;- as.data.frame(parathyroidGenesSE@colData)
 genesname &lt;- as.data.frame(rownames(parathyroidGenesSE))
 </code></pre>
-<p>```</p>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>From the data above, extract 1a. Apply the Columns Name to the count matrix using the colnames() function based on the sample run name</p>
 <p>1b. Apply the Row Name to the count matrix using the rownames() function based on the genes names</p>
 <p>1c Extract Sample (RUN) name of DPN treatment on 12h only</p>
-<p>1b. Subset the countmatrix to only containly the newly set criteria</p>
+<p>1b. Subset the countmatrix to only containing the newly set criteria</p>
 <p>1b. plot a heatmap using pheatmap on the newly extract col information</p>
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIldlZWsgNSBUaWR5aW5nIERhdGEiDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQojIFBhcnQgT25lIC0gVUJTDQoNCmBgYHtyfQ0KbGlicmFyeShhbHI0KQ0KbGlicmFyeSh0aWR5dmVyc2UpDQpsaWJyYXJ5KGdncGxvdDIpDQoNCmBgYA0KDQoNCmBgYHtyfQ0KVUJTcHJpY2VzIDwtIGFzLmRhdGEuZnJhbWUoVUJTcHJpY2VzKQ0KaGVhZChVQlNwcmljZXMpDQpgYGANCg0KI1F1ZXN0aW9ucyB0byBBbnN3ZXINCiMgIDEuIFdoYXQgaXMgdGhlIGdlbmVyYWwgdHJlbmQgb2cgcmljZSBwcmljZXMgaW4gYWxsIGNvdW50cmllcyBmcm9tIDIwMDMgdG8gMjAwOSwgDQojICB1c2UgYSBib3hwbG90IHRvIGlsbHVzdHJhdGUgeW91ciBmaW5kaW5ncyANCg0KYGBge3J9DQp0aWR5X3VicyA8LSBVQlNwcmljZXNbLGMoMyw2KV0NCg0KdGlkeV91YnMyIDwtIGdhdGhlcihkYXRhID0gdGlkeV91YnMsIGtleSA9IHllYXIsIHZhbHVlID0gcHJpY2UsIHJpY2UyMDAzLCByaWNlMjAwOSkNCg0KaGVhZCh0aWR5X3ViczIpDQoNCnRpZHlfdWJzMiR5ZWFyIDwtIHBhcnNlX251bWJlcih0aWR5X3ViczIkeWVhcikNCnRpZHlfdWJzMiR5ZWFyICA8LSBhcy5mYWN0b3IodGlkeV91YnMyJHllYXIpDQoNCmdncGxvdChkYXRhPXRpZHlfdWJzMixhZXMoeD15ZWFyLCB5PXByaWNlKSkgKyANCiAgICAgICAgZ2VvbV9ib3hwbG90KCkNCmBgYA0KDQojMi4gU3Vic2V0IGEgbGlzdCBvZiBjb3VudHJpZXMgdGhhdCBoYXZlIGFuIGluY3JlYXNlIG9mIHJpY2UgcHJpY2UgZnJvbSAyMDAzIHRvIDIwMDk/IA0KIyAgcGxvdCB0aGUgY291bnRyaWVzIGluIGEgYmFyIGNoYXJ0IHNob3dpbmcgdGhlIGRpZmZlcmVuY2VzIGluIHByaWNlcw0KIyAgc3ViZXQgYW5vdGhlciBsaXN0IG9mIGNvdW50cmllcyB0aGF0IGhhdmUgYW4gZGVjcmVhc2Ugb2YgcHJpY2UgZnJvbSAyMDAzIHRvIDIwMDkNCg0KYGBge3J9DQp0aWR5X3Vicw0KDQp0aWR5X3VicyRkaWZmIDwtIHRpZHlfdWJzJHJpY2UyMDA5IC0gdGlkeV91YnMkcmljZTIwMDMNCg0KaW5jcmVhc2VfcmljZSA8LSB0aWR5X3Vic1t0aWR5X3VicyRkaWZmPjAsXQ0KaW5jcmVhc2VfcmljZSRjb3VudHJpZXMgPC0gYXMuZmFjdG9yKHJvd25hbWVzKGluY3JlYXNlX3JpY2UpKQ0KDQpnZ3Bsb3QoZGF0YT1pbmNyZWFzZV9yaWNlLGFlcyh4PWRpZmYseT1jb3VudHJpZXMpKSArIA0KICBnZW9tX2NvbCgpDQpgYGANCg0KI3Jlb3JkZXJpbmcgY291bnRyaWVzIGJ5IGRpZmZlcmVuY2VzIA0KDQpgYGB7cn0NCmluY3JlYXNlX3JpY2UkY291bnRyaWVzIDwtIGZjdF9yZW9yZGVyKGluY3JlYXNlX3JpY2UkY291bnRyaWVzLCBpbmNyZWFzZV9yaWNlJGRpZmYpIA0KDQpnZ3Bsb3QoZGF0YT1pbmNyZWFzZV9yaWNlLGFlcyh4PWRpZmYseT1jb3VudHJpZXMpKSArIA0KICBnZW9tX2NvbCgpDQoNCmBgYA0KDQoNCiMjY291bnRyaWVzIHdpdGggZGVjcmVhc2VkIHJpY2VwcmljZQ0KYGBge3J9DQoNCmRlY3JlYXNlX3JpY2UgPC0gdGlkeV91YnNbdGlkeV91YnMkZGlmZjwwLF0NCg0KZGVjcmVhc2VfcmljZSRjb3VudHJpZXMgPC0gYXMuZmFjdG9yKHJvd25hbWVzKGRlY3JlYXNlX3JpY2UpKQ0KDQpnZ3Bsb3QoZGF0YT1kZWNyZWFzZV9yaWNlLGFlcyh4PWRpZmYseT1jb3VudHJpZXMpKSArIA0KICBnZW9tX2NvbCgpDQpgYGANCg0KIyByZW9yZGVyaW5nIGNvdW50cmllcyBieSBkaWZmZXJlbmNlcyANCg0KYGBge3J9DQpkZWNyZWFzZV9yaWNlJGNvdW50cmllcyA8LSBmY3RfcmVvcmRlcihkZWNyZWFzZV9yaWNlJGNvdW50cmllcywgZGVjcmVhc2VfcmljZSRkaWZmKSANCg0KZ2dwbG90KGRhdGE9ZGVjcmVhc2VfcmljZSxhZXMoeD1kaWZmLHk9Y291bnRyaWVzKSkgKyANCiAgZ2VvbV9jb2woKQ0KYGBgDQoNCiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIw0KIyBQYXJ0IFR3byAtIE5ZQyBGbGlnaHRzDQojIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMNCg0KYGBge3J9DQoNCmxpYnJhcnkobnljZmxpZ2h0czEzKQ0KZmxpZ2h0cyA8LSBmbGlnaHRzDQpzdHIoZmxpZ2h0cykNCg0KDQojMSBTZWxlY3QgYWxsIGZsaWdodHMgaW4gTm92ZW1iZXINCm5vdl9mbGlnaHRzID0gZmxpZ2h0cyAlPiUgDQogICAgICAgICAgICAgICAgZmlsdGVyKG1vbnRoID09IDExKQ0KDQojMiBzZWxlY3QgYWxsIGZsaWdodHMgb24gMjh0aCBvZiBOb3ZlbWJlcg0Kbm92MjggPC0gZmxpZ2h0cyAlPiUgDQogICAgICAgICAgICAgICAgZmlsdGVyKG1vbnRoID09IDExLCBkYXkgPT0gMjgpDQoNCiMzIFNlbGVjdCBmcm9tIHRoZSBwcmV2aW91cyBjb25kaXRpb24sIG9ubHkgdGhlIGNvbHVtbnMgKGZsaWdodCwgb3JpZ2luLCBkaXN0YW5jZSwgYWlyX3RpbWUpDQpub3YyOF80ID0gbm92MjggJT4lIA0KICAgICAgICAgICAgICBzZWxlY3QoZmxpZ2h0LCBvcmlnaW4sIGRpc3RhbmNlLCBhaXJfdGltZSkNCg0KDQojNCBDcmVhdGUgYSBuZXcgY29sdW1uIHdpdGggdGhlIHNwZWVkIG9mIHRoZSBzbGlnaHQgdXNpbmcgdGhlIHF1ZXN0aW9uIDMNCm5vdjI4X3dpdGhfc3BlZWQgPSBub3YyOF80ICU+JSANCiAgICAgICAgICAgICAgbXV0YXRlKHNwZWVkID0gZGlzdGFuY2UgLyBhaXJfdGltZSAqIDYwKQ0KDQojNS4gQ3JlYXRlIGEgc3VtbWFyeSBvZiB0aGUgYXZlcmFnZSBzcGVlZCBvZiBhbGwgZGF0YXNldA0Kbm92Mjhfd2l0aF9zcGVlZCAlPiUNCiAgICAgICAgICAgICAgc3VtbWFyaXplKGF2Z19zcGVlZCA9IG1lYW4oc3BlZWQsbmEucm09VFJVRSkpDQoNCiM2LiBDcmVhdGUgdGhlIHNhbWUgc3VtbWFyeSBvZiBmbGlnaHQgZnJvbSBkaWZmZXJlbnQgb3JpZ2lucw0Kbm92Mjhfd2l0aF9zcGVlZCAlPiUgDQogICAgICAgICAgICAgIGdyb3VwX2J5KG9yaWdpbikgJT4lDQogICAgICAgICAgICAgIHN1bW1hcml6ZShtZWFuX2Rpc3QgPSBtZWFuKGRpc3RhbmNlKSkNCg0KDQpgYGANCg0KQ2FsY3VsYXRlIGRlc3RpbmF0aW9uIGRlbGF5IGJhc2VkIG9uIGRlc3RpbmF0aW9uLCBhbmQgZmlsdGVyIHRoZSBmaW5hbCBvdXB1dA0KDQpgYGB7cn0NCmRlbGF5cyA8LSBmbGlnaHRzICU+JSANCiAgICAgICAgICAgIGdyb3VwX2J5KGRlc3QpICU+JSANCiAgICAgICAgICAgIHN1bW1hcmlzZSgNCiAgICAgICAgICAgICAgY291bnQgPSBuKCksDQogICAgICAgICAgICAgIGRpc3QgPSBtZWFuKGRpc3RhbmNlLCBuYS5ybSA9IFRSVUUpLA0KICAgICAgICAgICAgICBkZWxheSA9IG1lYW4oYXJyX2RlbGF5LCBuYS5ybSA9IFRSVUUpDQogICAgICAgICAgICApICU+JSANCiAgICAgICAgICAgICAgIGZpbHRlcihjb3VudCA+IDIwLCBkZXN0ICE9ICJITkwiKQ0KDQpsaWJyYXJ5KGdncGxvdDIpDQpnZ3Bsb3QoZGF0YSA9IGRlbGF5cywgbWFwcGluZyA9IGFlcyh4ID0gZGlzdCwgeSA9IGRlbGF5KSkgKw0KICBnZW9tX3BvaW50KGFlcyhzaXplID0gY291bnQpLCBhbHBoYSA9IDEvMykgKw0KICBnZW9tX3Ntb290aChzZSA9IEZBTFNFKQ0KDQpgYGANCg0KIyBSZWFsIFdvcmxkIEV4YW1wbGUNClBhcmF0aHlyb2lkU0UgaXMgYSBkYXRhc2V0IGZyb20gYmlvY29uZHVjdCB0aGF0IGNvbnRhaW4gYSBSTkEtU2VxIGV4cGVyaW1lbnQNCg0KYGBge3J9DQpCaW9jTWFuYWdlcjo6aW5zdGFsbCgicGFyYXRoeXJvaWRTRSIpDQpsaWJyYXJ5KHBhcmF0aHlyb2lkU0UpDQoNCmRhdGEocGFyYXRoeXJvaWRHZW5lc1NFKQ0KY291bnRtYXRyaXggPC0gYXMuZGF0YS5mcmFtZShwYXJhdGh5cm9pZEdlbmVzU0VAYXNzYXlzJGRhdGEkY291bnRzKQ0Kc2FtcGxlIDwtIGFzLmRhdGEuZnJhbWUocGFyYXRoeXJvaWRHZW5lc1NFQGNvbERhdGEpDQpnZW5lc25hbWUgPC0gYXMuZGF0YS5mcmFtZShyb3duYW1lcyhwYXJhdGh5cm9pZEdlbmVzU0UpKQ0KDQpgYGANCg0KDQpGcm9tIHRoZSBkYXRhIGFib3ZlLCBleHRyYWN0IA0KMWEuIEFwcGx5IHRoZSBDb2x1bW5zIE5hbWUgdG8gdGhlIGNvdW50IG1hdHJpeCB1c2luZyB0aGUgY29sbmFtZXMoKSBmdW5jdGlvbiBiYXNlZCBvbiB0aGUgc2FtcGxlIHJ1biBuYW1lDQoNCjFiLiBBcHBseSB0aGUgUm93IE5hbWUgdG8gdGhlIGNvdW50IG1hdHJpeCB1c2luZyB0aGUgcm93bmFtZXMoKSBmdW5jdGlvbiBiYXNlZCBvbiB0aGUgZ2VuZXMgbmFtZXMNCg0KMWMgIEV4dHJhY3QgU2FtcGxlIChSVU4pIG5hbWUgb2YgRFBOIHRyZWF0bWVudCBvbiAxMmggb25seQ0KDQoxYi4gU3Vic2V0IHRoZSBjb3VudG1hdHJpeCB0byBvbmx5IGNvbnRhaW5seSB0aGUgbmV3bHkgc2V0IGNyaXRlcmlhIA0KDQoxYi4gcGxvdCBhIGhlYXRtYXAgdXNpbmcgcGhlYXRtYXAgb24gdGhlIG5ld2x5IGV4dHJhY3QgY29sIGluZm9ybWF0aW9uDQoNCg0KDQoNCg0KDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIldlZWsgNSBUaWR5aW5nIERhdGEiDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQojIFBhcnQgT25lIC0gVUJTDQoNCmBgYHtyfQ0KbGlicmFyeShhbHI0KQ0KbGlicmFyeSh0aWR5dmVyc2UpDQpsaWJyYXJ5KGdncGxvdDIpDQoNCmBgYA0KDQoNCmBgYHtyfQ0KVUJTcHJpY2VzIDwtIGFzLmRhdGEuZnJhbWUoVUJTcHJpY2VzKQ0KaGVhZChVQlNwcmljZXMpDQpgYGANCg0KI1F1ZXN0aW9ucyB0byBBbnN3ZXINCiMgIDEuIFdoYXQgaXMgdGhlIGdlbmVyYWwgdHJlbmQgb2cgcmljZSBwcmljZXMgaW4gYWxsIGNvdW50cmllcyBmcm9tIDIwMDMgdG8gMjAwOSwgDQojICB1c2UgYSBib3hwbG90IHRvIGlsbHVzdHJhdGUgeW91ciBmaW5kaW5ncyANCg0KYGBge3J9DQp0aWR5X3VicyA8LSBVQlNwcmljZXNbLGMoMyw2KV0NCg0KdGlkeV91YnMyIDwtIGdhdGhlcihkYXRhID0gdGlkeV91YnMsIGtleSA9IHllYXIsIHZhbHVlID0gcHJpY2UsIHJpY2UyMDAzLCByaWNlMjAwOSkNCg0KaGVhZCh0aWR5X3ViczIpDQoNCnRpZHlfdWJzMiR5ZWFyIDwtIHBhcnNlX251bWJlcih0aWR5X3ViczIkeWVhcikNCnRpZHlfdWJzMiR5ZWFyICA8LSBhcy5mYWN0b3IodGlkeV91YnMyJHllYXIpDQoNCmdncGxvdChkYXRhPXRpZHlfdWJzMixhZXMoeD15ZWFyLCB5PXByaWNlKSkgKyANCiAgICAgICAgZ2VvbV9ib3hwbG90KCkNCmBgYA0KDQojMi4gU3Vic2V0IGEgbGlzdCBvZiBjb3VudHJpZXMgdGhhdCBoYXZlIGFuIGluY3JlYXNlIG9mIHJpY2UgcHJpY2UgZnJvbSAyMDAzIHRvIDIwMDk/IA0KIyAgcGxvdCB0aGUgY291bnRyaWVzIGluIGEgYmFyIGNoYXJ0IHNob3dpbmcgdGhlIGRpZmZlcmVuY2VzIGluIHByaWNlcw0KIyAgc3ViZXQgYW5vdGhlciBsaXN0IG9mIGNvdW50cmllcyB0aGF0IGhhdmUgYW4gZGVjcmVhc2Ugb2YgcHJpY2UgZnJvbSAyMDAzIHRvIDIwMDkNCg0KYGBge3J9DQp0aWR5X3Vicw0KDQp0aWR5X3VicyRkaWZmIDwtIHRpZHlfdWJzJHJpY2UyMDA5IC0gdGlkeV91YnMkcmljZTIwMDMNCg0KaW5jcmVhc2VfcmljZSA8LSB0aWR5X3Vic1t0aWR5X3VicyRkaWZmPjAsXQ0KaW5jcmVhc2VfcmljZSRjb3VudHJpZXMgPC0gYXMuZmFjdG9yKHJvd25hbWVzKGluY3JlYXNlX3JpY2UpKQ0KDQpnZ3Bsb3QoZGF0YT1pbmNyZWFzZV9yaWNlLGFlcyh4PWRpZmYseT1jb3VudHJpZXMpKSArIA0KICBnZW9tX2NvbCgpDQpgYGANCg0KI3Jlb3JkZXJpbmcgY291bnRyaWVzIGJ5IGRpZmZlcmVuY2VzIA0KDQpgYGB7cn0NCmluY3JlYXNlX3JpY2UkY291bnRyaWVzIDwtIGZjdF9yZW9yZGVyKGluY3JlYXNlX3JpY2UkY291bnRyaWVzLCBpbmNyZWFzZV9yaWNlJGRpZmYpIA0KDQpnZ3Bsb3QoZGF0YT1pbmNyZWFzZV9yaWNlLGFlcyh4PWRpZmYseT1jb3VudHJpZXMpKSArIA0KICBnZW9tX2NvbCgpDQoNCmBgYA0KDQoNCiMjY291bnRyaWVzIHdpdGggZGVjcmVhc2VkIHJpY2VwcmljZQ0KYGBge3J9DQoNCmRlY3JlYXNlX3JpY2UgPC0gdGlkeV91YnNbdGlkeV91YnMkZGlmZjwwLF0NCg0KZGVjcmVhc2VfcmljZSRjb3VudHJpZXMgPC0gYXMuZmFjdG9yKHJvd25hbWVzKGRlY3JlYXNlX3JpY2UpKQ0KDQpnZ3Bsb3QoZGF0YT1kZWNyZWFzZV9yaWNlLGFlcyh4PWRpZmYseT1jb3VudHJpZXMpKSArIA0KICBnZW9tX2NvbCgpDQpgYGANCg0KIyByZW9yZGVyaW5nIGNvdW50cmllcyBieSBkaWZmZXJlbmNlcyANCg0KYGBge3J9DQpkZWNyZWFzZV9yaWNlJGNvdW50cmllcyA8LSBmY3RfcmVvcmRlcihkZWNyZWFzZV9yaWNlJGNvdW50cmllcywgZGVjcmVhc2VfcmljZSRkaWZmKSANCg0KZ2dwbG90KGRhdGE9ZGVjcmVhc2VfcmljZSxhZXMoeD1kaWZmLHk9Y291bnRyaWVzKSkgKyANCiAgZ2VvbV9jb2woKQ0KYGBgDQoNCiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIw0KIyBQYXJ0IFR3byAtIE5ZQyBGbGlnaHRzDQojIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMNCg0KYGBge3J9DQoNCmxpYnJhcnkobnljZmxpZ2h0czEzKQ0KZmxpZ2h0cyA8LSBmbGlnaHRzDQpzdHIoZmxpZ2h0cykNCg0KDQojMSBTZWxlY3QgYWxsIGZsaWdodHMgaW4gTm92ZW1iZXINCm5vdl9mbGlnaHRzID0gZmxpZ2h0cyAlPiUgDQogICAgICAgICAgICAgICAgZmlsdGVyKG1vbnRoID09IDExKQ0KDQojMiBzZWxlY3QgYWxsIGZsaWdodHMgb24gMjh0aCBvZiBOb3ZlbWJlcg0Kbm92MjggPC0gZmxpZ2h0cyAlPiUgDQogICAgICAgICAgICAgICAgZmlsdGVyKG1vbnRoID09IDExLCBkYXkgPT0gMjgpDQoNCiMzIFNlbGVjdCBmcm9tIHRoZSBwcmV2aW91cyBjb25kaXRpb24sIG9ubHkgdGhlIGNvbHVtbnMgKGZsaWdodCwgb3JpZ2luLCBkaXN0YW5jZSwgYWlyX3RpbWUpDQpub3YyOF80ID0gbm92MjggJT4lIA0KICAgICAgICAgICAgICBzZWxlY3QoZmxpZ2h0LCBvcmlnaW4sIGRpc3RhbmNlLCBhaXJfdGltZSkNCg0KDQojNCBDcmVhdGUgYSBuZXcgY29sdW1uIHdpdGggdGhlIHNwZWVkIG9mIHRoZSBzbGlnaHQgdXNpbmcgdGhlIHF1ZXN0aW9uIDMNCm5vdjI4X3dpdGhfc3BlZWQgPSBub3YyOF80ICU+JSANCiAgICAgICAgICAgICAgbXV0YXRlKHNwZWVkID0gZGlzdGFuY2UgLyBhaXJfdGltZSAqIDYwKQ0KDQojNS4gQ3JlYXRlIGEgc3VtbWFyeSBvZiB0aGUgYXZlcmFnZSBzcGVlZCBvZiBhbGwgZGF0YXNldA0Kbm92Mjhfd2l0aF9zcGVlZCAlPiUNCiAgICAgICAgICAgICAgc3VtbWFyaXplKGF2Z19zcGVlZCA9IG1lYW4oc3BlZWQsbmEucm09VFJVRSkpDQoNCiM2LiBDcmVhdGUgdGhlIHNhbWUgc3VtbWFyeSBvZiBmbGlnaHQgZnJvbSBkaWZmZXJlbnQgb3JpZ2lucw0Kbm92Mjhfd2l0aF9zcGVlZCAlPiUgDQogICAgICAgICAgICAgIGdyb3VwX2J5KG9yaWdpbikgJT4lDQogICAgICAgICAgICAgIHN1bW1hcml6ZShtZWFuX2Rpc3QgPSBtZWFuKGRpc3RhbmNlKSkNCg0KDQpgYGANCg0KQ2FsY3VsYXRlIGRlc3RpbmF0aW9uIGRlbGF5IGJhc2VkIG9uIGRlc3RpbmF0aW9uLCBhbmQgZmlsdGVyIHRoZSBmaW5hbCBvdXB1dA0KDQpgYGB7cn0NCmRlbGF5cyA8LSBmbGlnaHRzICU+JSANCiAgICAgICAgICAgIGdyb3VwX2J5KGRlc3QpICU+JSANCiAgICAgICAgICAgIHN1bW1hcmlzZSgNCiAgICAgICAgICAgICAgY291bnQgPSBuKCksDQogICAgICAgICAgICAgIGRpc3QgPSBtZWFuKGRpc3RhbmNlLCBuYS5ybSA9IFRSVUUpLA0KICAgICAgICAgICAgICBkZWxheSA9IG1lYW4oYXJyX2RlbGF5LCBuYS5ybSA9IFRSVUUpDQogICAgICAgICAgICApICU+JSANCiAgICAgICAgICAgICAgIGZpbHRlcihjb3VudCA+IDIwLCBkZXN0ICE9ICJITkwiKQ0KDQpsaWJyYXJ5KGdncGxvdDIpDQpnZ3Bsb3QoZGF0YSA9IGRlbGF5cywgbWFwcGluZyA9IGFlcyh4ID0gZGlzdCwgeSA9IGRlbGF5KSkgKw0KICBnZW9tX3BvaW50KGFlcyhzaXplID0gY291bnQpLCBhbHBoYSA9IDEvMykgKw0KICBnZW9tX3Ntb290aChzZSA9IEZBTFNFKQ0KDQpgYGANCg0KIyBSZWFsIFdvcmxkIEV4YW1wbGUNClBhcmF0aHlyb2lkU0UgaXMgYSBkYXRhc2V0IGZyb20gYmlvY29uZHVjdCB0aGF0IGNvbnRhaW4gYSBSTkEtU2VxIGV4cGVyaW1lbnQNCg0KYGBge3J9DQpCaW9jTWFuYWdlcjo6aW5zdGFsbCgicGFyYXRoeXJvaWRTRSIpDQpsaWJyYXJ5KHBhcmF0aHlyb2lkU0UpDQoNCmRhdGEocGFyYXRoeXJvaWRHZW5lc1NFKQ0KY291bnRtYXRyaXggPC0gYXMuZGF0YS5mcmFtZShwYXJhdGh5cm9pZEdlbmVzU0VAYXNzYXlzJGRhdGEkY291bnRzKQ0Kc2FtcGxlIDwtIGFzLmRhdGEuZnJhbWUocGFyYXRoeXJvaWRHZW5lc1NFQGNvbERhdGEpDQpnZW5lc25hbWUgPC0gYXMuZGF0YS5mcmFtZShyb3duYW1lcyhwYXJhdGh5cm9pZEdlbmVzU0UpKQ0KDQpgYGANCg0KDQpGcm9tIHRoZSBkYXRhIGFib3ZlLCBleHRyYWN0IA0KMWEuIEFwcGx5IHRoZSBDb2x1bW5zIE5hbWUgdG8gdGhlIGNvdW50IG1hdHJpeCB1c2luZyB0aGUgY29sbmFtZXMoKSBmdW5jdGlvbiBiYXNlZCBvbiB0aGUgc2FtcGxlIHJ1biBuYW1lDQoNCjFiLiBBcHBseSB0aGUgUm93IE5hbWUgdG8gdGhlIGNvdW50IG1hdHJpeCB1c2luZyB0aGUgcm93bmFtZXMoKSBmdW5jdGlvbiBiYXNlZCBvbiB0aGUgZ2VuZXMgbmFtZXMNCg0KMWMgIEV4dHJhY3QgU2FtcGxlIChSVU4pIG5hbWUgb2YgRFBOIHRyZWF0bWVudCBvbiAxMmggb25seQ0KDQoxYi4gU3Vic2V0IHRoZSBjb3VudG1hdHJpeCB0byBvbmx5IGNvbnRhaW5pbmcgdGhlIG5ld2x5IHNldCBjcml0ZXJpYSANCg0KMWIuIHBsb3QgYSBoZWF0bWFwIHVzaW5nIHBoZWF0bWFwIG9uIHRoZSBuZXdseSBleHRyYWN0IGNvbCBpbmZvcm1hdGlvbg0KDQoNCg0KDQoNCg0K</div>
 
 
 

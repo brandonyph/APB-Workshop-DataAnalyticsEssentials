@@ -80,8 +80,7 @@ range_write(
 #- Append Data into existing Spreadsheet
 #################################################
 
-sheet_append(
-  ss, 
+sheet_append(ss,
   data_to_write
 )
 
