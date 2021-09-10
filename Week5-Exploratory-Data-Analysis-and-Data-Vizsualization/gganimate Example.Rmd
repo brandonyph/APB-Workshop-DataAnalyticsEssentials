@@ -1,0 +1,165 @@
+---
+title: "gganimate-tutorial"
+output:
+  md_document:
+    variant: gfm
+---
+
+#1. gganimate package 
+#2. transition_*()
+#3. ease_aes() 
+#4. enter_* and exit_* animation configuration 
+#5. COVID_19 data animation
+
+#-------------------------------------
+#  1. gganimate package 
+#------------------------------------
+
+```{r}
+library(gganimate)
+```
+
+```{r}
+#> Loading required package: ggplot2
+
+#gganimate extends the grammar of graphics as implemented by ggplot2 to include the description of animation.
+#It does this by providing a range of new grammar classes that can be added to the plot object
+#in order to customise how it should change with time.
+
+#transition_*() defines how the data should be spread out and how it relates to itself across time.
+#view_*() defines how the positional scales should change along the animation.
+#shadow_*() defines how data from other points in time should be presented in the given point in time.
+#enter_*()/exit_*() defines how new data should appear and how old data should disappear during the course of the animation.
+#ease_aes() defines how different aesthetics should be eased during transitions.
+
+# We'll start with a static plot
+p <- ggplot(iris, aes(x = Petal.Width, y = Petal.Length)) +
+  geom_point()
+
+#aes(colour = Species), size = 2
+
+plot(p)
+```
+
+
+
+
+
+```{r}
+#------------------------------------
+# 2. transition_states()
+#------------------------------------
+
+anim <- p +
+  transition_states(Species,
+                    transition_length = 2,
+                    state_length = 1)
+
+#states
+#   The unquoted name of the column holding the state levels in the data.
+#transition_length
+#   The relative length of the transition. Will be recycled to match the number of states in the data
+#state_length
+#   The relative length of the pause at the states. Will be recycled to match the number of states in the data
+```
+
+
+
+
+
+```{r}
+#--------------------------------------------
+# 3. ease_aes(), Control easing of aesthetics
+#--------------------------------------------
+
+anim +
+  ease_aes(y = 'bounce-out') # Sets special ease for y aesthetic
+
+##ease_aes() animation type
+#quadratic Models a power-of-2 function
+#cubic Models a power-of-3 function
+#quartic Models a power-of-4 function
+#quintic Models a power-of-5 function
+#sine Models a sine function
+#circular Models a pi/2 circle arc
+```
+
+
+```{r}
+#exponential Models an exponential function
+#elastic Models an elastic release of energy
+#back Models a pullback and relase
+#bounce Models the bouncing of a ball
+
+#modifier
+#-in The easing function is applied as-is
+#-out The easing function is applied in reverse
+#-in-out The first half of the transition it is applied as-is, while in the last half it is reversed
+
+anim +
+  ggtitle('Now showing {closest_state}',
+          subtitle = 'Frame {frame} of {nframes}')
+
+```
+
+
+
+
+
+```{r}
+#-------------------------------------
+# 4. Enter and exit animation
+#-------------------------------------
+#https://rdrr.io/github/thomasp85/gganimate/man/enter_exit.html
+
+anim2 <- ggplot(iris, aes(x = Petal.Width, y = Petal.Length)) + 
+  geom_point(aes(colour = Species)) + 
+  transition_states(Species,
+                    transition_length = 2,
+                    state_length = 1)
+
+anim2 +
+  enter_fade() +
+  exit_shrink()
+
+anim2 +
+  enter_fade() + enter_drift(x_mod = -1) +
+  exit_shrink() + exit_drift(x_mod = 5)
+
+```
+
+
+
+```{r}
+#-------------------------------------
+# Now lets combined all that we know
+#------------------------------------
+#Example 1 
+ggplot(mtcars, aes(factor(cyl), mpg)) + 
+  geom_boxplot() + 
+  # Here comes the gganimate code
+  transition_states(
+    gear,
+    transition_length = 2,
+    state_length = 1
+  ) +
+  enter_fade() + 
+  exit_shrink() +
+  ease_aes('sine-in-out')
+
+
+#Example 2
+#install.packages("gapminder")
+library(gapminder)
+
+ggplot(gapminder,aes(x = gdpPercap, y=lifeExp, size = pop, colour = country)) +
+  geom_point(show.legend = FALSE, alpha = 0.7) +
+  scale_color_viridis_d() +
+  scale_size(range = c(2, 12)) +
+  scale_x_log10() +
+  labs(x = "GDP per capita", y = "Life expectancy")+ 
+  transition_time(year) +
+  labs(title = "Year: {frame_time}")
+```
+
+

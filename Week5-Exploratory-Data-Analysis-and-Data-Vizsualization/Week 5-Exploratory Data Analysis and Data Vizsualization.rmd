@@ -18,10 +18,10 @@ knitr::opts_chunk$set(echo = TRUE)
 #install.packages("ggplot2")
 #install.packages("pheatmap")
 
-library(ggplot2)
-library(pheatmap)
-library(dplyr)
-library(tidyverse)
+library('ggplot2')
+library('pheatmap')
+library('dplyr')
+library('tidyverse')
 library("ggpubr")
 
 ```
@@ -115,11 +115,15 @@ ggplot(df, aes(x = rowname, y = mpg)) +
   geom_col() +
   rotate_x_text(angle = 45)
 
+
 # Reorder row names by mpg values
 ggplot(df, aes(x = reorder(rowname, mpg), y = mpg)) +
   geom_col()  +
   rotate_x_text(angle = 45)
+```
 
+
+```{r}
 # Horizontal bar plots, 
 # change fill color by groups and add text labels
 ggplot(df, aes(x = reorder(rowname, mpg), y = mpg)) +
@@ -267,9 +271,6 @@ p <- fviz_pca_ind(res.pca, label="none", habillage=iris$Species,
              addEllipses=TRUE, ellipse.level=0.95)
 print(p)
 
-
-
-
 ```
 
 
@@ -285,25 +286,84 @@ fviz_pca_biplot(res.pca)
 
 ```
 
+```{r}
+library(plotly)
+
+# plot_ly() tries to create a sensible plot based on the information you 
+# give it. If you don't provide a trace type, plot_ly() will infer one.
+plot_ly(economics, x = ~pop)
+plot_ly(economics, x = ~date, y = ~pop)
+```
+
+
+```{r}
+# plot_ly() doesn't require data frame(s), which allows one to take 
+# advantage of trace type(s) designed specifically for numeric matrices
+plot_ly(z = ~volcano)
+```
+
+
+```{r}
+# plotly has a functional interface: every plotly function takes a plotly
+# object as it's first input argument and returns a modified plotly object
+add_lines(plot_ly(economics, x = ~date, y = ~unemploy/pop))
+
+# To make code more readable, plotly imports the pipe operator from magrittr
+economics %>% plot_ly(x = ~date, y = ~unemploy/pop, z=~pce) %>% add_lines()
+
+economics %>% plot_ly(x = ~date, y = ~unemploy/pop) %>% add_paths()
+```
+
+
+```{r}
+# Attributes defined via plot_ly() set 'global' attributes that 
+# are carried onto subsequent traces, but those may be over-written
+plot_ly(economics, x = ~date, color = I("black")) %>%
+ add_lines(y = ~uempmed,color= I("yellow")) %>%
+ add_lines(y = ~psavert, color = I("red"))
+```
+
+
+```{r}
+# Attributes are documented in the figure reference -> https://plotly.com/r/reference
+# You might notice plot_ly() has named arguments that aren't in this figure
+# reference. These arguments make it easier to map abstract data values to
+# visual attributes.
+p <- plot_ly(palmerpenguins::penguins, x = ~bill_length_mm, y = ~body_mass_g)
+p
+
+```
+
+```{r}
+p %>% add_lines(linetype = ~species)
+
+p %>% add_paths(linetype = ~species)
+```
+
+
 
 # Exercise
 
 1. This is a subset of a count matrix contain the RNA_Seq results of an experiment pertaining to Parathyrioid,  using the row numbers as your gene i.e. row1 = gene1, and col1 = sample 1
+
 2. Identify which genes have not been expressed in the dataset, 
+
 3. Plot a heatmap of the dataset, showing a hierarchical clustering on the both the rows and columns
+
 4. Can you identify which samples belongs to which groups each samples belongs two? 
+
 5. Plot the same heatmap after log transforming your data in base10
-6. Can you identify which samples belongs to which groups each samples belongs two? 
-7. Sub-setting the data set to first of the two group as previous selected
-8. Calculate the average of each genes within each samples
-9. Sub-setting the data set to second of the two group as previous selected
-10. Calculate the average of each genes within each samples
+
+6. What other types of plot would you think it will be interesting to explore? 
+
+Going Further: 
+Using the package "nyclights13" from the previous week, any feature you think you can try to extract and analyze? 
 
 ```{r}
 library(parathyroidSE)
 data(parathyroidExonsSE)
 
-cm <- assay(parathyroidExonsSE)[1:1000,1:20]
+cm <- assay(parathyroidExonsSE)[1:5000,1:27]
 ```
 
 
