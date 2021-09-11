@@ -3,13 +3,41 @@ title: "Week 5 Tidying Data"
 output: html_notebook
 ---
 
+#Functions Example
+
+```{r}
+pow <- function(x, y) {
+  # function to print x raised to the power y
+  result <- x^y
+  print(paste(x,"raised to the power", y, "is", result))
+}
+
+pow(2,5)
+
+pow(x = 8, y = 2)
+
+#With default value
+pow <- function(x, y = 2) {
+    # function to print x raised to the power y
+    result <- x^y
+    print(paste(x,"raised to the power", y, "is", result))
+}
+
+pow(5)
+
+
+#Can you write a function to add, subtract and multiple? Can you also make the function to print the results out? 
+	
+```
+
+
+
 # Part One - UBS
 
 ```{r}
 library(alr4)
 library(tidyverse)
 library(ggplot2)
-
 ```
 
 
@@ -19,7 +47,7 @@ head(UBSprices)
 ```
 
 #Questions to Answer
-#  1. What is the general trend og rice prices in all countries from 2003 to 2009, 
+#  1. What is the general trend of rice prices in all countries from 2003 to 2009, 
 #  use a boxplot to illustrate your findings 
 
 ```{r}
@@ -204,4 +232,4 @@ Summary <- left_join(genes, gene_IDs, by = c("rownames(parathyroidGenesSE)"="ens
 ```
 
 
-8. Are you able to do the same for the other patient? Loops can help you here. 
+8. Are you able to do the same for the other patient? functions/loops can help you here. 
