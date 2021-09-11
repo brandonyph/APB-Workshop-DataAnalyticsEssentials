@@ -1,5 +1,5 @@
 ---
-title: "Week 5 Tidying Data"
+title: "Week 6 Tidying Data"
 output: html_notebook
 ---
 
@@ -12,10 +12,15 @@ pow <- function(x, y) {
   print(paste(x,"raised to the power", y, "is", result))
 }
 
-pow(2,5)
+pow(5,2)
 
-pow(x = 8, y = 2)
+pow(y = 2,x = 8)
 
+pow(9,0)
+```
+
+
+```{r}
 #With default value
 pow <- function(x, y = 2) {
     # function to print x raised to the power y
@@ -25,12 +30,11 @@ pow <- function(x, y = 2) {
 
 pow(5)
 
+pheatmap
 
 #Can you write a function to add, subtract and multiple? Can you also make the function to print the results out? 
 	
 ```
-
-
 
 # Part One - UBS
 
@@ -46,7 +50,7 @@ UBSprices <- as.data.frame(UBSprices)
 head(UBSprices)
 ```
 
-#Questions to Answer
+# Questions to Answer
 #  1. What is the general trend of rice prices in all countries from 2003 to 2009, 
 #  use a boxplot to illustrate your findings 
 
@@ -65,8 +69,8 @@ ggplot(data=tidy_ubs2,aes(x=year, y=price)) +
 ```
 
 #2. Subset a list of countries that have an increase of rice price from 2003 to 2009? 
-#  plot the countries in a bar chart showing the differences in prices
-#  subet another list of countries that have an decrease of price from 2003 to 2009
+#         plot the countries in a bar chart showing the differences in prices
+#         subet another list of countries that have an decrease of price from 2003 to 2009
 
 ```{r}
 tidy_ubs
@@ -91,7 +95,7 @@ ggplot(data=increase_rice,aes(x=diff,y=countries)) +
 ```
 
 
-##countries with decreased riceprice
+## countries with decreased rice price
 ```{r}
 
 decrease_rice <- tidy_ubs[tidy_ubs$diff<0,]
@@ -120,7 +124,6 @@ library(nycflights13)
 flights <- flights
 str(flights)
 
-
 #1 Select all flights in November
 nov_flights = flights %>% 
                 filter(month == 11)
@@ -137,11 +140,11 @@ nov28_4 = nov28 %>%
 
 ```{r}
 #4 Create a new column with the speed of the slight using the question 3
-nov28_with_speed = nov28_4 %>% 
+nov28_with_speed <- nov28_4 %>% 
               mutate(speed = distance / air_time * 60)
 
 #5. Create a summary of the average speed of all dataset
-nov28_with_speed %>%
+averagespeed <- nov28_with_speed %>%
               summarize(avg_speed = mean(speed,na.rm=TRUE))
 
 #6. Create the same summary of flight from different origins
@@ -162,7 +165,7 @@ delays <- flights %>%
               dist = mean(distance, na.rm = TRUE),
               delay = mean(arr_delay, na.rm = TRUE)
             ) %>% 
-               filter(count > 20, dest != "HNL")
+               filter(count > 26, dest != "HNL")
 
 library(ggplot2)
 ggplot(data = delays, mapping = aes(x = dist, y = delay)) +
@@ -172,10 +175,10 @@ ggplot(data = delays, mapping = aes(x = dist, y = delay)) +
 ```
 
 # Real World Example
-ParathyroidSE is a dataset from bioconduct that contain a RNA-Seq experiment
+ParathyroidSE is a dataset from bioconductor that contains a RNA-Seq experiment
 
 ```{r}
-BiocManager::install("parathyroidSE")
+#BiocManager::install("parathyroidSE")
 library(parathyroidSE)
 
 data(parathyroidGenesSE)
@@ -184,31 +187,121 @@ sample <- as.data.frame(parathyroidGenesSE@colData)
 genesname <- as.data.frame(rownames(parathyroidGenesSE))
 
 ```
+# Some revision from earlier week 
 
 From the data above, extract 
 1a. Apply the Columns Name to the count matrix using the colnames() function based on the sample run name
+```{r}
+colnames(countmatrix) <- sample$run
+```
 
-# Some revision from earlier week 
+
 1b. Apply the Row Name to the count matrix using the rownames() function based on the genes names
+```{r}
+rownames(countmatrix) <- unlist(genesname)
+```
 
-1c  Extract Sample (RUN) name of DPN treatment on 12h only
+1c  Extract Sample (RUN) name of DPN treatment on 24h only
+```{r}
+DPN_12_sample_run <- sample$run[sample$treatment=="DPN" & sample$time=="24h"]
+```
 
 1b. Subset the countmatrix to only containing the newly set criteria 
 
+```{r}
+DPN_12 <- countmatrix[,sample$treatment=="DPN" & sample$time=="24h"]
+
+#or
+
+DPN_12 <- countmatrix[,DPN_12_sample_run]
+```
+
+
 1b. plot a heatmap using pheatmap on the newly extract col information
+
+```{r}
+pheatmap(DPN_12[1:2000,])
+
+#normalization
+
+pheatmap(log10(DPN_12[1:2000,]+1),show_rownames = FALSE)
+```
+
 
 # Now something more complicated 
 2. Can you figure out which sample have the overall lowest count in the sample? plot a box plot of all the sum of all gene to check this out
 
-3. Filter out only the gene that have more than a count of more than 500 in all samples.
+```{r}
+boxplot(log10(countmatrix))
 
-4. from the dataset are you able to extract the sample from patient 1, treated with DPB, and plot out the comparison of the two. 
+countmatrix %>% colSums()
+```
+
+
+3. Filter out only the genes that have more than 500 counts in all samples.
+```{r}
+rowsum <- apply(countmatrix,1,sum)
+
+countmatrix_morethan500 <- countmatrix[rowsum>500,]
+```
+
+4. From the dataset are you able to extract the sample from patient 1, treated with DPB, and plot out the comparison of the two. 
+
+```{r}
+Patient1_DPN <- countmatrix[,c(3,4)]
+```
 
 5. Are you able to figure out how many genes have been up regulated and how many have been down regulated? 
 
+
+```{r}
+colnames(Patient1_DPN)
+
+Patient1_DPN <- Patient1_DPN  %>% mutate(diff = SRR479054 - SRR479055)
+
+nrow(Patient1_DPN[Patient1_DPN$diff > 0,])
+
+nrow(Patient1_DPN[Patient1_DPN$diff < 0,])
+  
+```
+
+
 6. Can you run a extract the top10 upregulated genes based on fold change? You can calculate fold change of the genes using fc=(expression condition 24h)/(expression condition 48h)
 
+```{r}
+Upregulated <- Patient1_DPN[Patient1_DPN$diff > 0,]
+Upregulated <- Upregulated %>% arrange(desc(diff))
+head(Upregulated, 10)
+
+
+plot_data <- data.frame(rownames(Upregulated),Upregulated$diff)
+
+colnames(plot_data) <- c("Name","Difference")
+
+hist(plot_data$Difference)
+
+ggplot(plot_data[1:20,],aes(x=Name,y=Difference)) + geom_col() + 
+  theme(axis.text.x = element_text(angle = 90))
+
+Downregulated <- Patient1_DPN[Patient1_DPN$diff < 0,]
+Downregulated <- Downregulated %>% arrange(diff)
+head(Downregulated)
+
+Patient1_DPN_FC <- Patient1_DPN %>% mutate(FC = SRR479054/SRR479055)
+
+```
+
+
 7. Can you do the same for Log2FC? 
+
+```{r}
+Patient1_DPN_FC_log2 <- Patient1_DPN %>% mutate(log2FC = log2(SRR479054/SRR479055+1))
+
+Patient1_DPN_FC_log2_UP <- Patient1_DPN_FC_log2 %>% filter(log2FC >2) %>% filter(log2FC <50)
+
+Patient1_DPN_FC_log2_down <- Patient1_DPN_FC_log2 %>% filter(log2FC < -2) %>% filter(log2FC > -50)
+
+```
 
 8. Are you able to annotate those genes you have isolated earlier? and join them to their Log2FC values
 
@@ -219,15 +312,25 @@ From the data above, extract
 library(biomaRt)
 
 mart <- useDataset("hsapiens_gene_ensembl", useMart("ensembl"))
-genes <-  genesname
+genes <-  as.data.frame(rownames(Patient1_DPN_FC_log2_UP))
+colnames(genes) <- "ensembl_gene_id"
 
-Allattribute <- listAttributes(ensembl)
+Allattribute <- listAttributes(mart)
 
 gene_IDs <- getBM(filters= "ensembl_gene_id", 
                   attributes= c("ensembl_gene_id","hgnc_symbol","description"),
                   values = genes, mart= mart)
 
-Summary <- left_join(genes, gene_IDs, by = c("rownames(parathyroidGenesSE)"="ensembl_gene_id"))
+Summary <- left_join(genes, gene_IDs, by = c("ensembl_gene_id"="ensembl_gene_id"))
+```
+
+
+```{r}
+### Joining Tables
+Patient1_DPN_FC_log2_UP$ensembl_gene_id <- row.names(Patient1_DPN_FC_log2_UP)
+Patient1_DPN_FC_log2_UP_Trim <- Patient1_DPN_FC_log2_UP[,c(4,5)]
+
+Summary2 <- left_join(Summary, Patient1_DPN_FC_log2_UP_Trim, by=c("ensembl_gene_id"="ensembl_gene_id"))
 
 ```
 
