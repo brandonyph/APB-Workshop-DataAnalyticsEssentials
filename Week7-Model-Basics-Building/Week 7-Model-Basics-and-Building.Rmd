@@ -10,7 +10,6 @@ Based on http://www.statslab.cam.ac.uk/~pat/redwsheets.pdf
 ```{r setup, include=FALSE}
 #
 
-
 ```
 
 # Regression/Classification model 
@@ -529,18 +528,18 @@ cifar$train$x[index,,,] %>%
 
 model <- keras_model_sequential() %>% 
   layer_conv_2d(filters = 32, kernel_size = c(3,3), activation = "relu", input_shape = c(32,32,3)) %>% 
-  layer_conv_2d(filters = 64, kernel_size = c(3,3), activation = "relu") %>% 
+  layer_conv_2d(filters = 16, kernel_size = c(3,3), activation = "relu") %>% 
   layer_max_pooling_2d(pool_size = c(2,2)) %>% 
-  layer_conv_2d(filters = 64, kernel_size = c(3,3), activation = "relu") %>%
+  layer_conv_2d(filters = 16, kernel_size = c(3,3), activation = "relu") %>%
   layer_max_pooling_2d(pool_size = c(2,2)) 
 
 summary(model)
 
 model %>% 
   layer_flatten() %>% 
-  layer_dense(units = 256, activation = "relu") %>% 
-  layer_dense(units = 128, activation = "relu") %>% 
   layer_dense(units = 64, activation = "relu") %>% 
+  layer_dense(units = 32, activation = "relu") %>% 
+  layer_dense(units = 16, activation = "relu") %>% 
   layer_dense(units = 10, activation = "softmax")
 
 summary(model)
@@ -564,6 +563,12 @@ plot(history)
 ############################################################################
 Prediction_train_data <- predict_classes(model, train_data)
 confusionMatrix(table(Prediction_train_data,train_label))
+
+
+############################################################################
+Prediction_test_data <- predict_classes(model, test_data)
+confusionMatrix(table(Prediction_test_data,test_label))
+
 
 ```
 
@@ -783,23 +788,6 @@ ae_plotly <- plot_ly(aedf3, x = ~node1, y = ~node2, z = ~node3, color = ~ais$sex
 ae_plotly 
 
 ```
-
-
-
-```{r Neural Network}
-#Stuff
-#https://www.datacamp.com/community/tutorials/machine-learning-in-r
-
-
-
-```
-
-
-
-
-
-
-
 
 
 

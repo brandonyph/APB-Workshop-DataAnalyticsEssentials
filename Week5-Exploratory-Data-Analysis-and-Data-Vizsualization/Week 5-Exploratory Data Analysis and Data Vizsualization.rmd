@@ -29,7 +29,7 @@ library("ggpubr")
 ## Create a random matrix and import the intergrated dataset
 
 ```{r pressure, echo=FALSE}
-df <- matrix(rnorm(1000),nrow=100)
+df <- matrix(rnorm(1000),nrow=10)
 iris <- iris
 ```
 
@@ -50,10 +50,13 @@ plot(iris)
 ```
 ```{r}
 hist(iris[,2])
+
+iris[,2] %>% 
 ```
 
 ```{r}
 boxplot(Petal.Length~Species,data=iris)
+
 ```
 
 # Label, theme and par
@@ -62,16 +65,17 @@ boxplot(Petal.Length~Species,data=iris)
 
 plot(iris[,2:3] ,
      main="The Iris Scatter Plot",
-     ylab="Sepal Length",
-     xlab="Sepal Width",
-     cex = 3,
-     xlim = c(1, 5),
-     ylim = c(1,7)
+     ylab="Sepal Length-test",
+     xlab="Sepal Width- testing",
+     cex = 7,
+     xlim = c(1,6),
+     ylim = c(1,10)
      )
 
 ```
 
 #ggplot
+
 ```{r}
 # Basic scatter plot
 ggplot(mpg, aes(cty, hwy)) +
@@ -90,12 +94,12 @@ ggplot(mpg, aes(cty, hwy)) +
 ```{r}
 # Basic histogram with mean line
 ggplot(iris, aes(Sepal.Length)) +
-  geom_histogram(bins = 20, fill = "white", color = "black")  +
-  geom_vline(aes(xintercept = mean(Sepal.Length)), linetype = 2)
+  geom_histogram(bins = 8, fill = "white", color = "black")  +
+  geom_vline(aes(xintercept = mean(Sepal.Length)), linetype = 1)
 
 ggplot(iris, aes(Sepal.Length)) +
   geom_histogram(aes(fill = Species, color = Species), bins = 20, 
-                 position = "identity", alpha = 0.5) +
+                 position = "identity", alpha = 0.3) +
   scale_fill_viridis_d() +
   scale_color_viridis_d()
 ```
@@ -108,7 +112,6 @@ df <- mtcars %>%
   as_data_frame() %>%
   mutate(cyl = as.factor(cyl)) %>%
   select(rowname, wt, mpg, cyl)
-
 
 # Basic bar plots
 ggplot(df, aes(x = rowname, y = mpg)) +
@@ -128,11 +131,9 @@ ggplot(df, aes(x = reorder(rowname, mpg), y = mpg)) +
 # change fill color by groups and add text labels
 ggplot(df, aes(x = reorder(rowname, mpg), y = mpg)) +
   geom_col( aes(fill = cyl)) + 
-  geom_text(aes(label = mpg), nudge_y = 2) + 
+  geom_text(aes(label = mpg), nudge_y = 3) + 
   coord_flip() +
   scale_fill_viridis_d()
-
-
 
 ```
 
@@ -168,7 +169,6 @@ ggplot(ToothGrowth, aes(dose, len)) +
   geom_violin(trim = FALSE) +
   geom_boxplot(width = 0.2)
 
-
 # Plot
 g <- ggplot(mpg, aes(class, cty))
 g + geom_boxplot(varwidth=T, fill="plum") + 
@@ -187,11 +187,11 @@ df <- economics %>%
   gather(key = "variable", value = "value", -date)
 
 head(df, 3)
-
+str(df)
 
 # Multiple line plot
 ggplot(df, aes(x = date, y = value)) + 
-  geom_line(aes(color = variable), size = 1) +
+  geom_line(aes(color = variable), size = 1)+
   scale_color_manual(values = c("#00AFBB", "#E7B800")) +
   theme_minimal()
 ```
@@ -309,7 +309,9 @@ plot_ly(z = ~volcano)
 add_lines(plot_ly(economics, x = ~date, y = ~unemploy/pop))
 
 # To make code more readable, plotly imports the pipe operator from magrittr
-economics %>% plot_ly(x = ~date, y = ~unemploy/pop, z=~pce) %>% add_lines()
+economics %>% 
+  plot_ly(x = ~date, y = ~unemploy/pop, z=~pce) %>% 
+  add_lines()
 
 economics %>% plot_ly(x = ~date, y = ~unemploy/pop) %>% add_paths()
 ```
@@ -339,32 +341,55 @@ p %>% add_lines(linetype = ~species)
 
 p %>% add_paths(linetype = ~species)
 ```
-
-
-
-# Exercise
-
-1. This is a subset of a count matrix contain the RNA_Seq results of an experiment pertaining to Parathyrioid,  using the row numbers as your gene i.e. row1 = gene1, and col1 = sample 1
-
-2. Identify which genes have not been expressed in the dataset, 
-
-3. Plot a heatmap of the dataset, showing a hierarchical clustering on the both the rows and columns
-
-4. Can you identify which samples belongs to which groups each samples belongs two? 
-
-5. Plot the same heatmap after log transforming your data in base10
-
-6. What other types of plot would you think it will be interesting to explore? 
-
-Going Further: 
-Using the package "nyclights13" from the previous week, any feature you think you can try to extract and analyze? 
-
 ```{r}
 library(parathyroidSE)
 data(parathyroidExonsSE)
 
 cm <- assay(parathyroidExonsSE)[1:5000,1:27]
 ```
+
+# Exercise
+
+1. This is a subset of a count matrix contain the RNA_Seq results of an experiment pertaining to Parathyrioid,  using the row numbers as your gene i.e. row1 = gene1, and col1 = sample 1
+
+2. Identify which genes have not been expressed in the dataset, 
+```{r}
+
+rownames(cm) <- seq(1,nrow(cm)) 
+notexpressed <- apply(cm,1,sum)
+
+gene <- notexpressed[notexpressed==0]
+gene <-as.data.frame(gene)
+
+```
+
+3. Plot a heatmap of the dataset, showing a hierarchical clustering on the both the rows and columns
+```{r}
+pheatmap(cm, cluster_rows = TRUE,cluster_cols = TRUE)
+```
+
+4. Can you identify which samples belongs to which groups each samples belongs two? 
+```{r}
+No
+```
+
+5. Plot the same heatmap after log transforming your data in base10
+
+```{r}
+pheatmap(log10(cm+1))
+```
+
+
+6. What other types of plot would you think it will be interesting to explore? 
+ -  Boxplot based on sample?
+ -  Animation based on transition between heatmap to heatmap
+ -  GO and kegg functional enrichment
+ -  Kegg Pathway mapping 
+
+Going Further: 
+Using the package "nyclights13" from the previous week, any feature you think you can try to extract and analyze? 
+ffmepg
+
 
 
 

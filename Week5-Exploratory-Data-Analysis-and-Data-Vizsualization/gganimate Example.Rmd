@@ -34,7 +34,7 @@ library(gganimate)
 
 # We'll start with a static plot
 p <- ggplot(iris, aes(x = Petal.Width, y = Petal.Length)) +
-  geom_point()
+  geom_jitter()
 
 #aes(colour = Species), size = 2
 
@@ -54,6 +54,8 @@ anim <- p +
   transition_states(Species,
                     transition_length = 2,
                     state_length = 1)
+
+anim
 
 #states
 #   The unquoted name of the column holding the state levels in the data.
