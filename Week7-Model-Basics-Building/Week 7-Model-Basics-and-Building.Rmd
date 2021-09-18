@@ -7,11 +7,6 @@ output: html_document
 
 Based on http://www.statslab.cam.ac.uk/~pat/redwsheets.pdf
 
-```{r setup, include=FALSE}
-#
-
-```
-
 # Regression/Classification model 
 
 1. Linear Regression (GLM)
@@ -140,6 +135,7 @@ iris_test_category <- iris[-ran, 5]
 
 library(class)
 ##run knn function
+##https://www.rdocumentation.org/packages/class/versions/7.3-19/topics/knn
 model_knn <- knn(iris_train, iris_test, cl = iris_target_category, k = 13)
 
 ##create confusion matrix
@@ -355,8 +351,13 @@ iris.pca <- PCA(iris[,1:4])
 
 fviz_pca_var(iris.pca)
 fviz_pca_ind(iris.pca,repel = TRUE,col.ind = iris$Species)
+```
 
+```{r Clustering model}
+plotly_pca_df <- as.data.frame(iris.pca$ind$coord)
+plotly_pca_df <- cbind(plotly_pca_df,iris[,5])
 
+plot_ly(plotly_pca_df, x = ~Dim.1, y = ~Dim.2, z = ~Dim.3,color=plotly_pca_df$`iris[, 5]`) %>% add_markers() 
 ```
 
 ```{r Clustering model}
@@ -735,7 +736,10 @@ history <- model %>% fit(
 #https://www.r-bloggers.com/2018/07/pca-vs-autoencoders-for-dimensionality-reduction/
 
 suppressPackageStartupMessages(library(DAAG))
+
+#https://r-data.pmagunia.com/dataset/r-dataset-package-daag-ais
 head(ais)
+
 
 # standardise
 minmax <- function(x) (x - min(x))/(max(x) - min(x))
