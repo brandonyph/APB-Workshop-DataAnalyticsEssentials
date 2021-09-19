@@ -56,6 +56,14 @@ g1 <- glm(socst ~ gender + race + ses + schtyp + read + write + science ,
           data = hsb)
 
 summary(g1)
+```
+
+
+```{r Classification model}
+predict.glm(g1, hsb[1:50,-11])
+hsb[1:50,11]
+
+plot(predict.glm(g1, hsb[1:50,-11]),hsb[1:50,11] )
 
 ```
 
@@ -136,7 +144,7 @@ iris_test_category <- iris[-ran, 5]
 library(class)
 ##run knn function
 ##https://www.rdocumentation.org/packages/class/versions/7.3-19/topics/knn
-model_knn <- knn(iris_train, iris_test, cl = iris_target_category, k = 13)
+model_knn <- knn(iris_train, iris_test, cl = iris_target_category, k = 30)
 
 ##create confusion matrix
 tab <- table(model_knn, iris_test_category)
@@ -158,8 +166,8 @@ input.dat <- readingSkills[c(1:105),]
 
 # Create the tree.
 output.tree <- ctree(
-nativeSpeaker ~ age + shoeSize + score, 
-data = input.dat)
+                    nativeSpeaker ~ age + shoeSize + score, 
+                    data = input.dat)
 
 # Plot the tree.
 plot(output.tree)
@@ -240,7 +248,10 @@ plot(m5, iris, Sepal.Width ~ Sepal.Length,
 
 ############################################################################################################
 ############################################################################################################
+```
 
+
+```{r Classification model}
 x <- iris[, 1:4]
 y <- iris[, 5]
 
@@ -262,8 +273,10 @@ Comparison <- cbind(iris, as.character(pred))
 ############################################################################################################
 ############################################################################################################
 ############################################################################################################
+```
 
 
+```{r Classification model}
 #gamma decides how many points to consider when drawing the decision boundaries
 
 #Gamma and cost 
@@ -325,7 +338,7 @@ data(iris)
 iris.scaled <- scale(iris[,1:4])
 
 iris.heatmap <- pheatmap(iris.scaled,
-                         kmeans_k = NA, 
+                         kmeans_k = 3, 
                          breaks = NA, 
                          border_color = "grey60",
                          cellwidth = NA, 
@@ -354,6 +367,7 @@ fviz_pca_ind(iris.pca,repel = TRUE,col.ind = iris$Species)
 ```
 
 ```{r Clustering model}
+library(plotly)
 plotly_pca_df <- as.data.frame(iris.pca$ind$coord)
 plotly_pca_df <- cbind(plotly_pca_df,iris[,5])
 
@@ -372,7 +386,7 @@ label <- iris.unique[,5]
 
 iris.unique <- as.matrix(iris.unique[,1:4])
 
-iris.rtsne <- Rtsne(iris.unique, dims = 2, initial_dims = 50, perplexity = 30)
+iris.rtsne <- Rtsne(iris.unique, dims = 2, initial_dims = 50, perplexity = 5)
 
 plotdata <- as.data.frame(iris.rtsne$Y)
 
@@ -464,7 +478,7 @@ library(caret)
 
 head(iris)
 
-NN = neuralnet(Species ~ ., iris, hidden = c(10,10,5) )
+NN = neuralnet(Species ~ ., iris, hidden = c(3,3,5) )
 
 # plot neural network
 plot(NN)
@@ -554,7 +568,7 @@ model %>% compile(
 history <- model %>% 
   fit(
     x = train_data, y = train_label,
-    epochs = 2,
+    epochs = 1,
     validation_split=0.2,
     use_multiprocessing=TRUE
   )
@@ -740,7 +754,6 @@ suppressPackageStartupMessages(library(DAAG))
 #https://r-data.pmagunia.com/dataset/r-dataset-package-daag-ais
 head(ais)
 
-
 # standardise
 minmax <- function(x) (x - min(x))/(max(x) - min(x))
 x_train <- apply(ais[,1:11], 2, minmax)
@@ -768,6 +781,7 @@ model3 %>% compile(
   loss = "mean_squared_error", 
   optimizer = "adam"
 )
+
 # fit model
 model3 %>% fit(
   x = x_train, 
